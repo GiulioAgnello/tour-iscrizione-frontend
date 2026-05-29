@@ -24,7 +24,7 @@ export default function HeroSection({ tour }) {
             {tour?.data_inizio && (
               <div className="hero__meta-item">
                 <span className="hero__meta-icon">📅</span>
-                <span>{tour.data_inizio}</span>
+                <span>{tour.data_inizio}{tour.orario_raduno ? ` — ${tour.orario_raduno}` : ''}</span>
               </div>
             )}
             {tour?.luogo && (

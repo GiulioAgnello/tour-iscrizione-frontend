@@ -50,9 +50,9 @@ export default function TourDetails({ tour }) {
 
         {/* Colonna destra — immagine */}
         <div className="tour-details__image-wrap">
-          {tour?.hero_image ? (
+          {tour?.dettagli_image ? (
             <img
-              src={tour.hero_image}
+              src={tour.dettagli_image}
               alt="Tour in moto nel Salento"
               className="tour-details__image"
               loading="lazy"
