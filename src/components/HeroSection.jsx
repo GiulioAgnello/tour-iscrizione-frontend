@@ -11,7 +11,7 @@ export default function HeroSection({ tour }) {
     >
       <div className="hero__overlay" />
 
-      <div className="container hero__content">
+      <div className="hero__content">
         <div className="hero__info-card">
           <span className="section__eyebrow">Evento moto</span>
           <h1 className="hero__title">{tour?.titolo || 'L\'Alba Salentina in Sella'}</h1>

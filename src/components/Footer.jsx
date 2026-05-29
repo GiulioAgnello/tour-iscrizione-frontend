@@ -4,7 +4,7 @@ import './Footer.css'
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="container footer__inner">
+      <div className="footer__inner">
         <div className="footer__brand">
           <span className="footer__logo">Alba Salentina in Sella</span>
           <p className="footer__tagline">Motoclub Salentum Terrae ASD</p>

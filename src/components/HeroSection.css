@@ -14,6 +14,8 @@
   position: relative;
   z-index: 1;
   padding-block: var(--space-xl);
+  max-width: 100%;
+  padding-inline: 2rem;
 }
 
 /* Card informazioni */

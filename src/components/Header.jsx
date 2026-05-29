@@ -14,10 +14,13 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="container header__inner">
+      <div className="header__inner">
         <Link to="/" className="header__logo">
-          <span className="header__logo-text">Alba Salentina</span>
-          <span className="header__logo-sub">in Sella</span>
+          <img src="/logo.png" alt="Motoclub Salentum Terrae" className="header__logo-img" />
+          <div className="header__logo-text-wrap">
+            <span className="header__logo-text">Alba Salentina</span>
+            <span className="header__logo-sub">in Sella</span>
+          </div>
         </Link>
 
         <button
