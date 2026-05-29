@@ -1,0 +1,299 @@
+import { useState, useRef } from 'react'
+import { postIscrizione } from '../utils/api'
+import './Iscrizione.css'
+
+const TAGLIE = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
+function Field({ label, required, error, children }) {
+  return (
+    <div className="form-group">
+      <label className="form-label">
+        {label}{required && <span className="required"> *</span>}
+      </label>
+      {children}
+      {error && <span className="form-error">{error}</span>}
+    </div>
+  )
+}
+
+export default function Iscrizione() {
+  const [form, setForm] = useState({
+    // Motociclista
+    cognome_nome: '', nato_a: '', data_nascita: '',
+    residente_citta: '', via: '', cell: '',
+    email: '', taglia: '', moto_modello: '', targa: '',
+    // Passeggera
+    pass_cognome_nome: '', pass_nato_a: '', pass_data_nascita: '',
+    pass_residente_citta: '', pass_via: '', pass_cell: '',
+    pass_email: '', pass_taglia: '',
+  })
+  const [errors, setErrors]     = useState({})
+  const [fotoFile, setFotoFile] = useState(null)
+  const [fotoPreview, setFotoPreview] = useState(null)
+  const [status, setStatus]     = useState('idle') // idle | loading | success | error
+  const [serverMsg, setServerMsg] = useState('')
+  const fileRef = useRef()
+
+  const set = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }))
+
+  function handleFoto(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setFotoFile(file)
+    setFotoPreview(URL.createObjectURL(file))
+  }
+
+  function validate() {
+    const err = {}
+    const required = [
+      'cognome_nome', 'nato_a', 'data_nascita', 'residente_citta',
+      'via', 'cell', 'email', 'taglia', 'moto_modello', 'targa',
+    ]
+    required.forEach(f => {
+      if (!form[f].trim()) err[f] = 'Campo obbligatorio'
+    })
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      err.email = 'Email non valida'
+    }
+    if (!fotoFile) err.foto = 'La foto è obbligatoria'
+    return err
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const err = validate()
+    if (Object.keys(err).length) { setErrors(err); return }
+    setErrors({})
+    setStatus('loading')
+
+    const fd = new FormData()
+    Object.entries(form).forEach(([k, v]) => { if (v) fd.append(k, v) })
+    fd.append('foto', fotoFile)
+
+    try {
+      const data = await postIscrizione(fd)
+      setServerMsg(data?.message || 'Iscrizione inviata con successo!')
+      setStatus('success')
+    } catch (err) {
+      setServerMsg(err.message || 'Errore durante l\'invio. Riprova.')
+      setStatus('error')
+    }
+  }
+
+  if (status === 'success') {
+    return (
+      <div className="page-hero">
+        <div className="container iscrizione-success">
+          <div className="iscrizione-success__icon">✅</div>
+          <h1>Iscrizione ricevuta!</h1>
+          <p>{serverMsg}</p>
+          <p className="iscrizione-success__sub">
+            Controlla la tua email. Riceverai una conferma non appena il tuo modulo sarà valutato.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className="page-hero">
+        <div className="container">
+          <h1>Modulo di Iscrizione</h1>
+          <p>L'Alba Salentina in Sella — compila tutti i campi obbligatori</p>
+        </div>
+      </div>
+
+      <section className="section">
+        <div className="container iscrizione-form-wrap">
+          <form onSubmit={handleSubmit} noValidate encType="multipart/form-data">
+
+            {/* ── DATI MOTOCICLISTA ── */}
+            <div className="iscrizione-block">
+              <h2 className="iscrizione-block__title">🏍️ Dati Motociclista</h2>
+              <div className="iscrizione-grid">
+                <Field label="Cognome e Nome" required error={errors.cognome_nome}>
+                  <input className={`form-input ${errors.cognome_nome ? 'error' : ''}`}
+                    type="text" value={form.cognome_nome} onChange={set('cognome_nome')}
+                    placeholder="Es. Rossi Mario" />
+                </Field>
+
+                <Field label="Nato/a a" required error={errors.nato_a}>
+                  <input className={`form-input ${errors.nato_a ? 'error' : ''}`}
+                    type="text" value={form.nato_a} onChange={set('nato_a')}
+                    placeholder="Es. Lecce" />
+                </Field>
+
+                <Field label="Data di nascita" required error={errors.data_nascita}>
+                  <input className={`form-input ${errors.data_nascita ? 'error' : ''}`}
+                    type="date" value={form.data_nascita} onChange={set('data_nascita')} />
+                </Field>
+
+                <Field label="Residente a" required error={errors.residente_citta}>
+                  <input className={`form-input ${errors.residente_citta ? 'error' : ''}`}
+                    type="text" value={form.residente_citta} onChange={set('residente_citta')}
+                    placeholder="Città" />
+                </Field>
+
+                <Field label="Via / Indirizzo" required error={errors.via}>
+                  <input className={`form-input ${errors.via ? 'error' : ''}`}
+                    type="text" value={form.via} onChange={set('via')}
+                    placeholder="Es. Via Roma 12" />
+                </Field>
+
+                <Field label="Cellulare" required error={errors.cell}>
+                  <input className={`form-input ${errors.cell ? 'error' : ''}`}
+                    type="tel" value={form.cell} onChange={set('cell')}
+                    placeholder="Es. 333 1234567" />
+                </Field>
+
+                <Field label="Email" required error={errors.email}>
+                  <input className={`form-input ${errors.email ? 'error' : ''}`}
+                    type="email" value={form.email} onChange={set('email')}
+                    placeholder="Es. mario@email.com" />
+                </Field>
+
+                <Field label="Taglia (maglietta)" required error={errors.taglia}>
+                  <select className={`form-select ${errors.taglia ? 'error' : ''}`}
+                    value={form.taglia} onChange={set('taglia')}>
+                    <option value="">— Seleziona —</option>
+                    {TAGLIE.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </Field>
+
+                <Field label="Moto — Modello" required error={errors.moto_modello}>
+                  <input className={`form-input ${errors.moto_modello ? 'error' : ''}`}
+                    type="text" value={form.moto_modello} onChange={set('moto_modello')}
+                    placeholder="Es. Honda CB500F" />
+                </Field>
+
+                <Field label="Targa" required error={errors.targa}>
+                  <input className={`form-input ${errors.targa ? 'error' : ''}`}
+                    type="text" value={form.targa} onChange={set('targa')}
+                    placeholder="Es. AB123CD" style={{ textTransform: 'uppercase' }} />
+                </Field>
+              </div>
+            </div>
+
+            {/* ── DATI PASSEGGERA ── */}
+            <div className="iscrizione-block">
+              <h2 className="iscrizione-block__title">
+                👤 Dati Passeggera
+                <span className="iscrizione-block__optional">(opzionale)</span>
+              </h2>
+              <div className="iscrizione-grid">
+                <Field label="Cognome e Nome">
+                  <input className="form-input" type="text"
+                    value={form.pass_cognome_nome} onChange={set('pass_cognome_nome')}
+                    placeholder="Es. Bianchi Giulia" />
+                </Field>
+
+                <Field label="Nata a">
+                  <input className="form-input" type="text"
+                    value={form.pass_nato_a} onChange={set('pass_nato_a')}
+                    placeholder="Es. Brindisi" />
+                </Field>
+
+                <Field label="Data di nascita">
+                  <input className="form-input" type="date"
+                    value={form.pass_data_nascita} onChange={set('pass_data_nascita')} />
+                </Field>
+
+                <Field label="Residente a">
+                  <input className="form-input" type="text"
+                    value={form.pass_residente_citta} onChange={set('pass_residente_citta')}
+                    placeholder="Città" />
+                </Field>
+
+                <Field label="Via / Indirizzo">
+                  <input className="form-input" type="text"
+                    value={form.pass_via} onChange={set('pass_via')}
+                    placeholder="Es. Via Garibaldi 5" />
+                </Field>
+
+                <Field label="Cellulare">
+                  <input className="form-input" type="tel"
+                    value={form.pass_cell} onChange={set('pass_cell')}
+                    placeholder="Es. 333 7654321" />
+                </Field>
+
+                <Field label="Email">
+                  <input className="form-input" type="email"
+                    value={form.pass_email} onChange={set('pass_email')}
+                    placeholder="Es. giulia@email.com" />
+                </Field>
+
+                <Field label="Taglia (maglietta)">
+                  <select className="form-select"
+                    value={form.pass_taglia} onChange={set('pass_taglia')}>
+                    <option value="">— Seleziona —</option>
+                    {TAGLIE.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </Field>
+              </div>
+            </div>
+
+            {/* ── FOTO ── */}
+            <div className="iscrizione-block">
+              <h2 className="iscrizione-block__title">
+                📸 Foto
+                <span className="iscrizione-block__required"> *</span>
+              </h2>
+              <p className="iscrizione-block__desc">
+                Carica una foto del motociclista (JPG, PNG o WebP — max 5MB).
+              </p>
+
+              <div className="iscrizione-foto">
+                <div
+                  className={`iscrizione-foto__drop ${errors.foto ? 'error' : ''}`}
+                  onClick={() => fileRef.current?.click()}
+                >
+                  {fotoPreview ? (
+                    <img src={fotoPreview} alt="Anteprima foto" className="iscrizione-foto__preview" />
+                  ) : (
+                    <div className="iscrizione-foto__placeholder">
+                      <span>📁</span>
+                      <span>Clicca per selezionare la foto</span>
+                      <span className="iscrizione-foto__hint">JPG, PNG, WebP — max 5MB</span>
+                    </div>
+                  )}
+                </div>
+                <input
+                  ref={fileRef}
+                  type="file"
+                  name="foto"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleFoto}
+                  style={{ display: 'none' }}
+                />
+                {errors.foto && <span className="form-error">{errors.foto}</span>}
+              </div>
+            </div>
+
+            {/* ── ERRORE SERVER ── */}
+            {status === 'error' && (
+              <div className="alert alert--error">{serverMsg}</div>
+            )}
+
+            {/* ── SUBMIT ── */}
+            <div className="iscrizione-submit">
+              <p className="iscrizione-submit__note">
+                Inviando il modulo accetti il{' '}
+                <a href="/regolamento" target="_blank" rel="noreferrer">regolamento dell'evento</a>{' '}
+                e autorizzi il trattamento dei dati personali.
+              </p>
+              <button
+                type="submit"
+                className="btn btn--primary iscrizione-submit__btn"
+                disabled={status === 'loading'}
+              >
+                {status === 'loading' ? 'Invio in corso…' : 'Invia iscrizione'}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </section>
+    </>
+  )
+}

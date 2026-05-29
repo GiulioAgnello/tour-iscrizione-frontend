@@ -1,0 +1,94 @@
+.sponsor-banner {
+  background: var(--color-bg-dark);
+  padding-block: var(--space-sm);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sponsor-banner__label {
+  flex-shrink: 0;
+  padding-left: var(--container-pad);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* Track wrapper — maschera i bordi */
+.sponsor-banner__track-wrapper {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+/* Animazione scroll */
+.sponsor-banner__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.sponsor-banner__track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Singolo sponsor */
+.sponsor-banner__item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sponsor-banner__item img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.7;
+  transition: opacity var(--transition);
+}
+
+.sponsor-banner__item img:hover {
+  opacity: 1;
+}
+
+.sponsor-banner__name {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .sponsor-banner__label { display: none; }
+}
