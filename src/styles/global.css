@@ -3,36 +3,36 @@
    ============================================================ */
 :root {
   /* Colori principali */
-  --color-bg:          #ffffff;
-  --color-bg-alt:      #f5f5f5;
-  --color-bg-dark:     #1a1a1a;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f5f5f5;
+  --color-bg-dark: #1a1a1a;
 
-  --color-primary:     #f5c400;   /* giallo */
-  --color-primary-dark:#c9a000;
-  --color-text:        #1a1a1a;
-  --color-text-muted:  #666666;
-  --color-text-light:  #ffffff;
-  --color-border:      #e0e0e0;
-  --color-grey:        #4a4a4a;
-  --color-grey-light:  #9a9a9a;
+  --color-primary: #f5c400; /* giallo */
+  --color-primary-dark: #c9a000;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+  --color-text-light: #ffffff;
+  --color-border: #e0e0e0;
+  --color-grey: #4a4a4a;
+  --color-grey-light: #9a9a9a;
 
   /* Tipografia */
-  --font-heading: 'Rajdhani', sans-serif;
-  --font-body:    'Inter', sans-serif;
+  --font-heading: "Rajdhani", sans-serif;
+  --font-body: "Inter", sans-serif;
 
   /* Spaziatura */
-  --space-xs:  0.5rem;
-  --space-sm:  1rem;
-  --space-md:  1.5rem;
-  --space-lg:  2.5rem;
-  --space-xl:  4rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
   --space-2xl: 6rem;
 
   /* Layout */
   --container-max: 1200px;
   --container-pad: 1.25rem;
-  --radius:        6px;
-  --radius-lg:     12px;
+  --radius: 6px;
+  --radius-lg: 12px;
 
   /* Transizioni */
   --transition: 0.2s ease;
@@ -41,7 +41,9 @@
 /* ============================================================
    RESET & BASE
    ============================================================ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -93,15 +95,24 @@ a {
 /* ============================================================
    TIPOGRAFIA
    ============================================================ */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-heading);
   line-height: 1.15;
   font-weight: 700;
 }
 
-h1 { font-size: clamp(2rem,   5vw, 3.5rem); }
-h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
-h3 { font-size: clamp(1.2rem, 3vw, 1.7rem); }
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+h2 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+h3 {
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+}
 
 /* ============================================================
    BOTTONI
@@ -119,7 +130,10 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.7rem); }
   font-weight: 600;
   letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background var(--transition), transform var(--transition), opacity var(--transition);
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    opacity var(--transition);
   text-transform: uppercase;
 }
 
@@ -139,14 +153,14 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.7rem); }
 }
 
 .btn--outline {
-  background: transparent;
-  color: var(--color-text-light);
-  border: 2px solid var(--color-text-light);
+  color: var(--color-text-dark);
+  border: 2px solid black;
 }
 
 .btn--outline:hover:not(:disabled) {
   background: var(--color-text-light);
   color: var(--color-text);
+  transform: translateY(-2px);
 }
 
 .btn--dark {
@@ -191,7 +205,9 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.7rem); }
   font-size: 1rem;
   color: var(--color-text);
   background: var(--color-bg);
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
   outline: none;
 }
 
@@ -291,7 +307,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.7rem); }
    ============================================================ */
 @media (max-width: 768px) {
   :root {
-    --space-xl:  2.5rem;
+    --space-xl: 2.5rem;
     --space-2xl: 3.5rem;
   }
 }
