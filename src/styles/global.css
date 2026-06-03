@@ -126,7 +126,7 @@ h3 {
   border: none;
   border-radius: var(--radius);
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   cursor: pointer;
@@ -153,8 +153,8 @@ h3 {
 }
 
 .btn--outline {
-  color: var(--color-text-dark);
-  border: 2px solid black;
+  color: var(--color-text-light);
+  border: 2px solid rgb(255, 255, 255);
 }
 
 .btn--outline:hover:not(:disabled) {

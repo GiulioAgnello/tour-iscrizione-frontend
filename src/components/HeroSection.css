@@ -21,10 +21,10 @@
 /* Card informazioni */
 .hero__info-card {
   max-width: 540px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(245, 196, 0, 0.4);
-  border-left: 4px solid var(--color-primary);
+  /* background: rgba(255, 255, 255, 0.92); */
+  /* backdrop-filter: blur(2px); */
+  /* border: 1px solid rgba(245, 196, 0, 0.4); */
+  /* border-left: 4px solid var(--color-primary); */
   border-radius: var(--radius-lg);
   padding: var(--space-lg) var(--space-lg);
   display: flex;
@@ -33,12 +33,12 @@
 }
 
 .hero__title {
-  color: var(--color-text);
+  color: white;
   text-transform: uppercase;
 }
 
 .hero__subtitle {
-  color: var(--color-text-muted);
+  color: white;
   font-size: 1rem;
   line-height: 1.6;
 }
@@ -57,7 +57,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--color-text);
+  color: white;
   font-size: 0.95rem;
 }
 
@@ -90,6 +90,16 @@
     background: rgba(255, 255, 255, 0.93);
   }
 
-  .hero__actions { flex-direction: column; }
-  .hero__actions .btn { width: 100%; justify-content: center; }
+  .hero__subtitle,
+  .hero__meta {
+    display: none;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+  }
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

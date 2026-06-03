@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
-import './HeroSection.css'
+import { Link } from "react-router-dom";
+import "./HeroSection.css";
 
 export default function HeroSection({ tour }) {
-  const bg = tour?.hero_image || ''
+  const bg = tour?.hero_image || "";
 
   return (
     <section
@@ -14,17 +14,23 @@ export default function HeroSection({ tour }) {
       <div className="hero__content">
         <div className="hero__info-card">
           <span className="section__eyebrow">Evento moto</span>
-          <h1 className="hero__title">{tour?.titolo || 'L\'Alba Salentina in Sella'}</h1>
+          <h1 className="hero__title">
+            {tour?.titolo || "L'Alba Salentina in Sella"}{" "}
+            {tour?.data_inizio?.slice(0, 4)}
+          </h1>
 
           {tour?.info_breve && (
             <p className="hero__subtitle">{tour.info_breve}</p>
           )}
 
-          <div className="hero__meta">
+          {/* <div className="hero__meta">
             {tour?.data_inizio && (
               <div className="hero__meta-item">
                 <span className="hero__meta-icon">📅</span>
-                <span>{tour.data_inizio}{tour.orario_raduno ? ` — ${tour.orario_raduno}` : ''}</span>
+                <span>
+                  {tour.data_inizio}
+                  {tour.orario_raduno ? ` — ${tour.orario_raduno}` : ""}
+                </span>
               </div>
             )}
             {tour?.luogo && (
@@ -45,7 +51,7 @@ export default function HeroSection({ tour }) {
                 <span>Max {tour.posti_max} posti</span>
               </div>
             )}
-          </div>
+          </div> */}
 
           <div className="hero__actions">
             <Link to="/iscrizione" className="btn btn--primary">
@@ -58,5 +64,5 @@ export default function HeroSection({ tour }) {
         </div>
       </div>
     </section>
-  )
+  );
 }
