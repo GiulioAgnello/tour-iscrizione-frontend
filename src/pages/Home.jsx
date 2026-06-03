@@ -3,6 +3,7 @@ import { getTourInfo, getSponsors } from "../utils/api";
 import HeroSection from "../components/HeroSection";
 import SponsorBanner from "../components/SponsorBanner";
 import TourDetails from "../components/TourDetails";
+import VideoSection from "../components/VideoSection";
 import CtaSection from "../components/CtaSection";
 
 export default function Home() {
@@ -22,8 +23,9 @@ export default function Home() {
     <>
       <HeroSection tour={tour} />
       <TourDetails tour={tour} />
-      <CtaSection tour={tour} />
+      <VideoSection tour={tour} />
       <SponsorBanner sponsors={sponsors} />
+      <CtaSection tour={tour} />
     </>
   );
 }

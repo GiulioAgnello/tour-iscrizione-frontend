@@ -3,8 +3,8 @@ import './SponsorBanner.css'
 export default function SponsorBanner({ sponsors = [] }) {
   if (!sponsors.length) return null
 
-  // Duplica la lista per il loop infinito del marquee
-  const items = [...sponsors, ...sponsors]
+  // 4x per garantire copertura full-width anche con pochi sponsor
+  const items = [...sponsors, ...sponsors, ...sponsors, ...sponsors]
 
   return (
     <section className="sponsor-banner">
