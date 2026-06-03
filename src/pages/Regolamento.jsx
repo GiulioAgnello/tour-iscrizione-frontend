@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { getRegolamento } from '../utils/api'
+import { getRegolamento, getTourInfo } from '../utils/api'
 import './Regolamento.css'
 
 export default function Regolamento() {
-  const [testo, setTesto]   = useState('')
+  const [testo, setTesto]     = useState('')
+  const [tour, setTour]       = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -11,6 +12,9 @@ export default function Regolamento() {
       .then(d => setTesto(d?.regolamento || ''))
       .catch(() => {})
       .finally(() => setLoading(false))
+    getTourInfo()
+      .then(setTour)
+      .catch(() => {})
   }, [])
 
   return (
@@ -19,6 +23,33 @@ export default function Regolamento() {
         <div className="container">
           <h1>Regolamento</h1>
           <p>L'Alba Salentina in Sella — norme di partecipazione</p>
+
+          <div className="regolamento__meta">
+            {tour?.data_inizio && (
+              <div className="regolamento__meta-item">
+                <span className="regolamento__meta-icon">📅</span>
+                <span>{tour.data_inizio}{tour.orario_raduno ? ` — ${tour.orario_raduno}` : ''}</span>
+              </div>
+            )}
+            {tour?.luogo && (
+              <div className="regolamento__meta-item">
+                <span className="regolamento__meta-icon">📍</span>
+                <span>{tour.luogo}</span>
+              </div>
+            )}
+            {tour?.quota && (
+              <div className="regolamento__meta-item">
+                <span className="regolamento__meta-icon">💶</span>
+                <span>Quota: {tour.quota}</span>
+              </div>
+            )}
+            {tour?.posti_max && (
+              <div className="regolamento__meta-item">
+                <span className="regolamento__meta-icon">👥</span>
+                <span>Max {tour.posti_max} posti</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -36,34 +67,7 @@ export default function Regolamento() {
               dangerouslySetInnerHTML={{ __html: testo }}
             />
           ) : (
-            <div className="regolamento-content">
-              <h2>Condizioni generali di partecipazione</h2>
-              <p>
-                La partecipazione all'evento "L'Alba Salentina in Sella" obbliga il Partecipante ad
-                osservare tutte le regole di buona condotta e di rispetto della circolazione stradale,
-                impegnandosi a mantenere un comportamento prudente ed una guida del proprio mezzo in
-                sicurezza per sé e per gli altri.
-              </p>
-              <p>
-                Il partecipante esonera e manleva il "MotoClub Salentum Terrae e i suoi organizzatori"
-                da ogni responsabilità per danni alla propria persona, a cosa o verso terzi oltre per
-                tutte le cause non menzionate che potranno verificarsi durante l'esecuzione dell'evento.
-              </p>
-              <h3>Informativa sulla privacy</h3>
-              <p>
-                Con la sottoscrizione del modulo di iscrizione si autorizza l'organizzatore dell'evento
-                al trattamento dei dati personali ai sensi e per gli effetti di cui all'art. 13 del
-                Regolamento UE 2016/679 (GDPR).
-              </p>
-              <h3>Note importanti</h3>
-              <ul>
-                <li>Partecipare con adeguato abbigliamento tecnico da moto (piloti e passeggeri).</li>
-                <li>Partire con il pieno di carburante.</li>
-                <li>Mantenere la distanza di sicurezza dagli altri equipaggi.</li>
-                <li>Non ostacolare il lavoro delle staffette.</li>
-                <li>Non fare gara: l'evento non è una competizione.</li>
-              </ul>
-            </div>
+            <p style={{ color: 'var(--color-text-muted)' }}>Il regolamento verrà pubblicato a breve.</p>
           )}
         </div>
       </section>

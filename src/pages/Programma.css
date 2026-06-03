@@ -1,4 +1,4 @@
-/* ── Header pagina ── */
+/* ── Header ── */
 .programma-page__header {
   background: var(--color-bg-dark);
   padding: var(--space-xl) var(--container-pad) var(--space-lg);
@@ -11,148 +11,140 @@
   font-weight: 700;
   text-transform: uppercase;
   color: var(--color-text-light);
-  margin-bottom: var(--space-xs);
 }
 
-.programma-page__meta {
-  color: var(--color-primary);
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* ── Descrizione ── */
+.programma-intro {
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* ── Container timeline ── */
-.programma-page__container {
-  max-width: 860px;
+.programma-intro__container {
+  max-width: 780px;
   margin-inline: auto;
-  padding: var(--space-xl) var(--container-pad);
+  padding: var(--space-lg) var(--container-pad);
 }
 
+.programma-intro__text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--color-text);
+  text-align: center;
+}
+
+/* ── Placeholder ── */
 .programma-page__empty {
   text-align: center;
   color: var(--color-text-muted);
   font-size: 1.1rem;
-  padding: var(--space-xl) 0;
+  padding: var(--space-xl) var(--container-pad);
 }
 
-/* ── Timeline ── */
-.timeline {
-  list-style: none;
-  position: relative;
-  padding-left: 0;
+/* ── Tappe zigzag ── */
+.programma-tappe {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Linea verticale */
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 72px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
+.tappa-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 200px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Alternanza sfondo */
+.tappa-row:nth-child(odd)  { background: var(--color-bg); }
+.tappa-row:nth-child(even) { background: var(--color-bg-alt); }
+
+/* Reversed: testo a sinistra, foto a destra */
+.tappa-row--reversed {
+  direction: rtl;
+}
+.tappa-row--reversed > * {
+  direction: ltr;
+}
+
+/* Immagine */
+.tappa-row__img-wrap {
+  overflow: hidden;
+}
+
+.tappa-row__img-wrap--empty {
   background: var(--color-border);
 }
 
-/* ── Singola tappa ── */
-.timeline__item {
+.tappa-row__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.tappa-row:hover .tappa-row__img {
+  transform: scale(1.03);
+}
+
+/* Contenuto testuale */
+.tappa-row__content {
   display: flex;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
-  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: var(--space-md) var(--space-lg);
 }
 
-/* Pallino sulla linea */
-.timeline__item::before {
-  content: "";
-  position: absolute;
-  left: 64px;
-  top: 18px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  border: 3px solid var(--color-bg);
-  box-shadow: 0 0 0 2px var(--color-primary);
-  z-index: 1;
-}
-
-/* Badge orario */
-.timeline__badge {
-  flex-shrink: 0;
-  width: 72px;
-  text-align: right;
-  padding-right: var(--space-md);
-  padding-top: 12px;
+.tappa-row__time {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-primary);
   letter-spacing: 0.04em;
   line-height: 1;
 }
 
-/* Contenuto tappa */
-.timeline__body {
-  flex: 1;
-  background: var(--color-bg-alt);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-}
-
-.timeline__img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
-
-.timeline__text {
-  padding: var(--space-sm) var(--space-md);
-}
-
-.timeline__luogo {
+.tappa-row__place {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--color-text);
-  margin-bottom: 0.25rem;
+  line-height: 1.1;
 }
 
-.timeline__desc {
-  color: var(--color-text-muted);
+.tappa-row__desc {
   font-size: 0.95rem;
   line-height: 1.6;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
 }
 
 /* ── Mobile ── */
 @media (max-width: 640px) {
-  .timeline::before {
-    left: 0;
-    display: none;
+  .tappa-row {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    direction: ltr;
   }
 
-  .timeline__item {
-    flex-direction: column;
-    gap: var(--space-xs);
+  .tappa-row--reversed {
+    direction: ltr;
   }
 
-  .timeline__item::before {
-    display: none;
-  }
-
-  .timeline__badge {
-    width: auto;
-    text-align: left;
-    padding-right: 0;
-    padding-top: 0;
-    font-size: 1.1rem;
-  }
-
-  .timeline__img {
+  .tappa-row__img-wrap {
     height: 180px;
+  }
+
+  .tappa-row__content {
+    padding: var(--space-sm) var(--container-pad);
+  }
+
+  .tappa-row__time {
+    font-size: 1.2rem;
+  }
+
+  .tappa-row__place {
+    font-size: 1.3rem;
   }
 }

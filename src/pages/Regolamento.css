@@ -1,3 +1,28 @@
+/* Meta dati nel page-hero */
+.regolamento__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem var(--space-md);
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.regolamento__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+}
+
+.regolamento__meta-icon {
+  font-size: 1rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
 .regolamento-wrap {
   max-width: 760px;
 }
@@ -5,6 +30,7 @@
 .regolamento-content {
   line-height: 1.8;
   color: var(--color-text);
+  text-align: center;
 }
 
 .regolamento-content h2 {
@@ -26,17 +52,21 @@
   color: var(--color-text-muted);
 }
 
-.regolamento-content ul {
+.regolamento-content ul,
+.regolamento-content ol {
   margin-bottom: var(--space-sm);
   padding-left: var(--space-md);
 }
 
 .regolamento-content li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   color: var(--color-text-muted);
+  line-height: 1.7;
 }
 
-.regolamento-content strong { color: var(--color-text); }
+.regolamento-content strong {
+  color: var(--color-text);
+}
 
 /* Skeleton loading */
 .regolamento-skeleton {
@@ -47,13 +77,22 @@
 
 .regolamento-skeleton__line {
   height: 1rem;
-  background: linear-gradient(90deg, var(--color-bg-alt) 25%, var(--color-border) 50%, var(--color-bg-alt) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-alt) 25%,
+    var(--color-border) 50%,
+    var(--color-bg-alt) 75%
+  );
   background-size: 200% 100%;
   border-radius: 4px;
   animation: shimmer 1.4s infinite;
 }
 
 @keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
