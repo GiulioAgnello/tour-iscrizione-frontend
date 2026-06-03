@@ -5,11 +5,8 @@ export default function HeroSection({ tour }) {
   const bg = tour?.hero_image || "";
 
   return (
-    <section
-      className="hero"
-      style={bg ? { backgroundImage: `url(${bg})` } : undefined}
-    >
-      <div className="hero__overlay" />
+    <section className="hero">
+      {bg && <img className="hero__bg" src={bg} alt="" />}
 
       <div className="hero__content">
         <div className="hero__info-card">
