@@ -5,6 +5,7 @@ import "./Header.css";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/iscrizione", label: "Iscriviti" },
+  { to: "/programma", label: "Programma" },
   { to: "/regolamento", label: "Regolamento" },
   { to: "/contatti", label: "Contatti" },
 ];

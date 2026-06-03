@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Iscrizione from './pages/Iscrizione'
 import Regolamento from './pages/Regolamento'
+import Programma from './pages/Programma'
 import Contatti from './pages/Contatti'
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/"            element={<Home />} />
           <Route path="/iscrizione"  element={<Iscrizione />} />
           <Route path="/regolamento" element={<Regolamento />} />
+          <Route path="/programma"   element={<Programma />} />
           <Route path="/contatti"    element={<Contatti />} />
         </Routes>
       </main>
