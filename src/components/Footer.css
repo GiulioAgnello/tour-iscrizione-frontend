@@ -58,6 +58,21 @@
   text-align: center;
 }
 
+.footer__cookie-link {
+  background: none;
+  border: none;
+  color: var(--color-grey-light);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: color var(--transition);
+}
+
+.footer__cookie-link:hover {
+  color: var(--color-primary);
+}
+
 @media (max-width: 640px) {
   .footer__inner {
     grid-template-columns: 1fr;

@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
+import { useCookieConsent } from '../context/CookieConsentContext'
 import './Footer.css'
 
 export default function Footer() {
+  const { reset } = useCookieConsent()
+
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -18,7 +21,10 @@ export default function Footer() {
         </nav>
 
         <p className="footer__copy">
-          © {new Date().getFullYear()} Motoclub Salentum Terrae ASD. Tutti i diritti riservati.
+          © {new Date().getFullYear()} Motoclub Salentum Terrae ASD. Tutti i diritti riservati.{' '}
+          <button className="footer__cookie-link" onClick={reset}>
+            Gestisci preferenze cookie
+          </button>
         </p>
       </div>
     </footer>

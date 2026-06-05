@@ -27,6 +27,8 @@ export default function Iscrizione() {
     pass_residente_citta: '', pass_via: '', pass_cell: '',
     pass_email: '', pass_taglia: '',
   })
+  const [consenso1, setConsenso1] = useState(false)
+  const [consenso2, setConsenso2] = useState(false)
   const [errors, setErrors]     = useState({})
   const [fotoFile, setFotoFile] = useState(null)
   const [fotoPreview, setFotoPreview] = useState(null)
@@ -56,6 +58,8 @@ export default function Iscrizione() {
       err.email = 'Email non valida'
     }
     if (!fotoFile) err.foto = 'La foto è obbligatoria'
+    if (!consenso1) err.consenso1 = 'Devi accettare le condizioni di partecipazione'
+    if (!consenso2) err.consenso2 = 'Devi accettare l\'informativa sulla privacy'
     return err
   }
 
@@ -69,6 +73,8 @@ export default function Iscrizione() {
     const fd = new FormData()
     Object.entries(form).forEach(([k, v]) => { if (v) fd.append(k, v) })
     fd.append('foto', fotoFile)
+    fd.append('consenso_partecipazione', '1')
+    fd.append('consenso_privacy', '1')
 
     try {
       const data = await postIscrizione(fd)
@@ -270,6 +276,74 @@ export default function Iscrizione() {
               </div>
             </div>
 
+            {/* ── CONSENSI ── */}
+            <div className="iscrizione-block">
+              <h2 className="iscrizione-block__title">📋 Consensi obbligatori</h2>
+
+              {/* Consenso 1 */}
+              <div className="consenso">
+                <div className="consenso__scroll">
+                  <p>
+                    <strong>Condizioni generali obbligatorie e liberatoria</strong>
+                  </p>
+                  <p>
+                    La partecipazione all'evento "L'ALBA SALENTINA IN SELLA" obbliga il Partecipante
+                    ad osservare tutte le regole di buona condotta e di rispetto della circolazione
+                    stradale, impegnandosi a mantenere un comportamento prudente ed una guida del
+                    proprio mezzo in sicurezza per sé e per gli altri.
+                  </p>
+                  <p>
+                    Il partecipante esonera e manleva il "MotoClub Salentum Terrae ed i suoi
+                    organizzatori" da ogni responsabilità per danni alla propria persona, a cosa o
+                    verso terzi oltre per tutte le cause non menzionate che potranno verificarsi
+                    durante l'esecuzione dell'evento.
+                  </p>
+                </div>
+                <label className={`consenso__label ${errors.consenso1 ? 'error' : ''}`}>
+                  <input
+                    type="checkbox"
+                    checked={consenso1}
+                    onChange={e => setConsenso1(e.target.checked)}
+                    className="consenso__checkbox"
+                  />
+                  Ho letto e accetto le condizioni di partecipazione
+                </label>
+                {errors.consenso1 && <span className="form-error">{errors.consenso1}</span>}
+              </div>
+
+              {/* Consenso 2 */}
+              <div className="consenso" style={{ marginTop: 'var(--space-md)' }}>
+                <div className="consenso__scroll">
+                  <p>
+                    <strong>Informativa sulla privacy — art. 13 Regolamento UE 2016/679 (GDPR)</strong>
+                  </p>
+                  <p>
+                    Con la sottoscrizione della presente si autorizza l'organizzatore dell'evento al
+                    trattamento dei dati personali ai sensi e per gli effetti di cui all'art. 13,
+                    del Regolamento UE 2016/679 relativo alla protezione delle persone fisiche con
+                    riguardo al trattamento dei dati personali, nonché alla libera circolazione di
+                    tali dati e che abroga la direttiva 95/46/CE, nel rispetto dei criteri di
+                    correttezza e trasparenza, tutelando la sua/tua riservatezza ed i suoi/tuoi
+                    diritti e per fini leciti.
+                  </p>
+                  <p>
+                    Il trattamento sarà effettuato anche con l'ausilio di mezzi informatici per
+                    tutte le finalità strettamente connesse alla realizzazione dell'evento.
+                  </p>
+                </div>
+                <label className={`consenso__label ${errors.consenso2 ? 'error' : ''}`}>
+                  <input
+                    type="checkbox"
+                    checked={consenso2}
+                    onChange={e => setConsenso2(e.target.checked)}
+                    className="consenso__checkbox"
+                  />
+                  Ho letto e accetto l'informativa sulla privacy
+                </label>
+                {errors.consenso2 && <span className="form-error">{errors.consenso2}</span>}
+              </div>
+            </div>
+
             {/* ── ERRORE SERVER ── */}
             {status === 'error' && (
               <div className="alert alert--error">{serverMsg}</div>
@@ -277,11 +351,6 @@ export default function Iscrizione() {
 
             {/* ── SUBMIT ── */}
             <div className="iscrizione-submit">
-              <p className="iscrizione-submit__note">
-                Inviando il modulo accetti il{' '}
-                <a href="/regolamento" target="_blank" rel="noreferrer">regolamento dell'evento</a>{' '}
-                e autorizzi il trattamento dei dati personali.
-              </p>
               <button
                 type="submit"
                 className="btn btn--primary iscrizione-submit__btn"

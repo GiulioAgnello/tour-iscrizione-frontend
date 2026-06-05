@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import CookieBanner from './components/CookieBanner'
+import { CookieConsentProvider } from './context/CookieConsentContext'
 import Home from './pages/Home'
 import Iscrizione from './pages/Iscrizione'
 import Regolamento from './pages/Regolamento'
@@ -9,6 +11,7 @@ import Contatti from './pages/Contatti'
 
 export default function App() {
   return (
+    <CookieConsentProvider>
     <div className="site-wrapper">
       <Header />
       <main className="main-content">
@@ -21,6 +24,8 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <CookieBanner />
     </div>
+    </CookieConsentProvider>
   )
 }
