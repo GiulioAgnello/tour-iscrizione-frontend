@@ -58,8 +58,12 @@
   justify-content: center;
 }
 
-.iscrizione-foto__drop:hover { border-color: var(--color-primary); }
-.iscrizione-foto__drop.error { border-color: #e53e3e; }
+.iscrizione-foto__drop:hover {
+  border-color: var(--color-primary);
+}
+.iscrizione-foto__drop.error {
+  border-color: #e53e3e;
+}
 
 .iscrizione-foto__placeholder {
   display: flex;
@@ -71,8 +75,13 @@
   text-align: center;
 }
 
-.iscrizione-foto__placeholder span:first-child { font-size: 2rem; }
-.iscrizione-foto__hint { font-size: 0.8rem; color: var(--color-grey-light); }
+.iscrizione-foto__placeholder span:first-child {
+  font-size: 2rem;
+}
+.iscrizione-foto__hint {
+  font-size: 0.8rem;
+  color: var(--color-grey-light);
+}
 
 .iscrizione-foto__preview {
   width: 100%;
@@ -117,10 +126,64 @@
   gap: var(--space-sm);
 }
 
-.iscrizione-success__icon { font-size: 4rem; }
-.iscrizione-success h1 { color: var(--color-primary); }
-.iscrizione-success p { color: rgba(255,255,255,0.8); max-width: 500px; }
-.iscrizione-success__sub { font-size: 0.9rem; color: rgba(255,255,255,0.55); }
+.iscrizione-success__icon {
+  font-size: 4rem;
+}
+.iscrizione-success h1 {
+  color: var(--color-primary);
+}
+.iscrizione-success p {
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 500px;
+}
+.iscrizione-success__sub {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Toggle passeggera */
+.iscrizione-passeggera-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  padding: 0;
+  text-align: left;
+  width: 100%;
+  transition: color var(--transition);
+}
+
+.iscrizione-passeggera-toggle:hover {
+  color: var(--color-primary);
+}
+
+.iscrizione-passeggera-toggle__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-bg-dark);
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.iscrizione-radio {
+  align-items: center;
+  padding: 0.5rem 1rem;
+
+  gap: 0.5rem;
+}
 
 /* Consensi */
 .consenso__scroll {
@@ -160,8 +223,17 @@
 
 /* Mobile */
 @media (max-width: 640px) {
-  .iscrizione-grid { grid-template-columns: 1fr; }
-  .iscrizione-block { padding: var(--space-md); }
-  .iscrizione-submit { flex-direction: column; align-items: stretch; }
-  .iscrizione-submit__btn { width: 100%; }
+  .iscrizione-grid {
+    grid-template-columns: 1fr;
+  }
+  .iscrizione-block {
+    padding: var(--space-md);
+  }
+  .iscrizione-submit {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .iscrizione-submit__btn {
+    width: 100%;
+  }
 }
