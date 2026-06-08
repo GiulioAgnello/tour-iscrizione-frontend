@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    // Proxy verso WP locale — adatta la porta se necessario
+    // Proxy verso WP locale — solo per sviluppo locale
     proxy: {
       '/wp-json': {
         target: 'http://touriscrizione.local',

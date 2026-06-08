@@ -1,0 +1,27 @@
+# ─── WordPress + React SPA ────────────────────────────────────────────────────
+
+# React index.html ha priorità su index.php di WordPress
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# 1. File e cartelle fisiche (assets React, wp-content, wp-includes…) → diretto
+#    Eccezione: la root "/" non deve fermarsi qui (altrimenti DirectoryIndex serve index.php)
+RewriteCond %{REQUEST_URI} !^/$
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 2. Percorsi WordPress → index.php (WP gestisce REST API, admin, login)
+RewriteCond %{REQUEST_URI} ^/wp-json/ [OR]
+RewriteCond %{REQUEST_URI} ^/wp-admin/ [OR]
+RewriteCond %{REQUEST_URI} ^/wp-login\.php [OR]
+RewriteCond %{REQUEST_URI} ^/xmlrpc\.php [OR]
+RewriteCond %{REQUEST_URI} ^/wp-cron\.php
+RewriteRule ^ index.php [L]
+
+# 3. Tutto il resto → React SPA
+RewriteRule ^ /index.html [L]
+</IfModule>
