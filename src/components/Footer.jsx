@@ -22,6 +22,8 @@ export default function Footer() {
 
         <p className="footer__copy">
           © {new Date().getFullYear()} Motoclub Salentum Terrae ASD. Tutti i diritti riservati.{' '}
+          <Link to="/privacy" className="footer__cookie-link">Privacy Policy</Link>
+          {' · '}
           <button className="footer__cookie-link" onClick={reset}>
             Gestisci preferenze cookie
           </button>

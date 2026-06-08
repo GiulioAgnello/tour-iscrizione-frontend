@@ -24,7 +24,6 @@ export default function Header() {
           />
           <div className="header__logo-text-wrap">
             <span className="header__logo-text">Motoclub Salentum Terrae</span>
-            <span className="header__logo-sub">in Sella</span>
           </div>
         </Link>
 

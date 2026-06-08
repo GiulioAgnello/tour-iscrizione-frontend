@@ -8,6 +8,7 @@ import Iscrizione from './pages/Iscrizione'
 import Regolamento from './pages/Regolamento'
 import Programma from './pages/Programma'
 import Contatti from './pages/Contatti'
+import Privacy from './pages/Privacy'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/regolamento" element={<Regolamento />} />
           <Route path="/programma"   element={<Programma />} />
           <Route path="/contatti"    element={<Contatti />} />
+          <Route path="/privacy"     element={<Privacy />} />
         </Routes>
       </main>
       <Footer />
