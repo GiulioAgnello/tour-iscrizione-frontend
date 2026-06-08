@@ -5,6 +5,7 @@ import SponsorBanner from "../components/SponsorBanner";
 import TourDetails from "../components/TourDetails";
 import VideoSection from "../components/VideoSection";
 import CtaSection from "../components/CtaSection";
+import PostiCounter from "../components/PostiCounter";
 
 export default function Home() {
   const [tour, setTour] = useState(null);
@@ -21,6 +22,7 @@ export default function Home() {
 
   return (
     <>
+      <PostiCounter tour={tour} />
       <HeroSection tour={tour} />
       <TourDetails tour={tour} />
       <VideoSection tour={tour} />

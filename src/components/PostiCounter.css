@@ -1,0 +1,150 @@
+/* ===================================================
+   PostiCounter — urgency banner full-width
+   =================================================== */
+
+.posti-banner {
+  width: 100%;
+  background: #0b1120;   /* quasi nero, più scuro dell'header */
+  border-bottom: 2px solid #1e293b;
+}
+
+.posti-banner__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0.9rem var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+/* Badge stato */
+.posti-banner__badge {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  /* default: giallo */
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+/* Testo */
+.posti-banner__text {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  flex: 1;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Progress bar area */
+.posti-banner__bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+  min-width: 200px;
+}
+
+.posti-banner__bar-track {
+  flex: 1;
+  height: 7px;
+  background: #1e293b;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.posti-banner__bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.6s ease;
+  background: #f59e0b;   /* default giallo */
+}
+
+.posti-banner__bar-label {
+  font-size: 0.78rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* ---- STATI URGENZA ---- */
+
+/* POSTI LIMITATI (≥70% pieno) — arancio */
+.posti-banner--warning {
+  background: #130e02;
+  border-bottom-color: #2d1f00;
+}
+.posti-banner--warning .posti-banner__badge {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.35);
+}
+.posti-banner--warning .posti-banner__bar-fill {
+  background: #f59e0b;
+}
+
+/* ULTIMI POSTI (≤3 disponibili) — rosso caldo */
+.posti-banner--critico {
+  background: #130306;
+  border-bottom-color: #2d000a;
+}
+.posti-banner--critico .posti-banner__badge {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.4);
+  animation: posti-pulse 1.8s ease-in-out infinite;
+}
+.posti-banner--critico .posti-banner__text {
+  color: #fca5a5;
+}
+.posti-banner--critico .posti-banner__bar-fill {
+  background: #ef4444;
+}
+
+/* ESAURITO */
+.posti-banner--esaurito {
+  background: #0f0f0f;
+  border-bottom-color: #1a1a1a;
+}
+.posti-banner--esaurito .posti-banner__badge {
+  background: rgba(100, 116, 139, 0.2);
+  color: #94a3b8;
+  border-color: rgba(148, 163, 184, 0.3);
+}
+.posti-banner--esaurito .posti-banner__text {
+  color: #64748b;
+}
+.posti-banner--esaurito .posti-banner__bar-fill {
+  background: #475569;
+}
+
+/* Badge pulse per stato critico */
+@keyframes posti-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 640px) {
+  .posti-banner__inner {
+    padding: 0.75rem var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .posti-banner__bar-wrap {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .posti-banner__text {
+    font-size: 0.85rem;
+  }
+}
