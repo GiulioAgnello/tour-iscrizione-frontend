@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react'
-import { getRegolamento, getTourInfo } from '../utils/api'
-import './Regolamento.css'
+import { useState, useEffect } from "react";
+import { getRegolamento, getTourInfo } from "../utils/api";
+import "./Regolamento.css";
 
 export default function Regolamento() {
-  const [testo, setTesto]     = useState('')
-  const [tour, setTour]       = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [testo, setTesto] = useState("");
+  const [tour, setTour] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getRegolamento()
-      .then(d => setTesto(d?.regolamento || ''))
+      .then((d) => setTesto(d?.regolamento || ""))
       .catch(() => {})
-      .finally(() => setLoading(false))
+      .finally(() => setLoading(false));
     getTourInfo()
       .then(setTour)
-      .catch(() => {})
-  }, [])
+      .catch(() => {});
+  }, []);
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function Regolamento() {
           <h1>Regolamento</h1>
           <p>L'Alba Salentina in Sella — norme di partecipazione</p>
 
-          <div className="regolamento__meta">
+          {/* <div className="regolamento__meta">
             {tour?.data_inizio && (
               <div className="regolamento__meta-item">
                 <span className="regolamento__meta-icon">📅</span>
@@ -49,7 +49,7 @@ export default function Regolamento() {
                 <span>Max {tour.posti_max} posti</span>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -58,7 +58,11 @@ export default function Regolamento() {
           {loading ? (
             <div className="regolamento-skeleton">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="regolamento-skeleton__line" style={{ width: `${75 + (i % 3) * 10}%` }} />
+                <div
+                  key={i}
+                  className="regolamento-skeleton__line"
+                  style={{ width: `${75 + (i % 3) * 10}%` }}
+                />
               ))}
             </div>
           ) : testo ? (
@@ -67,10 +71,12 @@ export default function Regolamento() {
               dangerouslySetInnerHTML={{ __html: testo }}
             />
           ) : (
-            <p style={{ color: 'var(--color-text-muted)' }}>Il regolamento verrà pubblicato a breve.</p>
+            <p style={{ color: "var(--color-text-muted)" }}>
+              Il regolamento verrà pubblicato a breve.
+            </p>
           )}
         </div>
       </section>
     </>
-  )
+  );
 }
