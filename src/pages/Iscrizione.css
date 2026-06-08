@@ -178,11 +178,28 @@
   flex-shrink: 0;
 }
 
-.iscrizione-radio {
-  align-items: center;
-  padding: 0.5rem 1rem;
+/* Scelta passeggera */
+.iscrizione-passeggera-scelta {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  transition: border-color var(--transition);
+}
 
+.iscrizione-passeggera-scelta.error {
+  border-color: var(--color-error, #ef4444);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.iscrizione-radio {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 /* Consensi */

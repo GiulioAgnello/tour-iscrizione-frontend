@@ -27,8 +27,8 @@
 }
 
 .header__logo-img {
-  height: 100px;
-  width: 100px;
+  height: 90px;
+  width: 90px;
   object-fit: contain;
   flex-shrink: 0;
   display: block;
@@ -123,8 +123,8 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+/* Tablet + Mobile */
+@media (max-width: 1000px) {
   .header__burger {
     display: flex;
   }
@@ -132,7 +132,7 @@
   .header__nav {
     display: none;
     position: absolute;
-    top: 72px;
+    top: calc(90px + 16px + 3px); /* logo height + padding-block * 2 + border */
     left: 0;
     right: 0;
     background: var(--color-bg);

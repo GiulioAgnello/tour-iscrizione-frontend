@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
-import { postIscrizione } from "../utils/api";
+import { useState, useRef, useEffect } from "react";
+import { postIscrizione, getTourInfo } from "../utils/api";
+import TourInfoBar from "../components/TourInfoBar";
 import "./Iscrizione.css";
 
 const TAGLIE = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -18,6 +19,7 @@ function Field({ label, required, error, children }) {
 }
 
 export default function Iscrizione() {
+  const [tour, setTour] = useState(null);
   const [hasPasseggera, setHasPasseggera] = useState(null); // null | 'si' | 'no'
   const [form, setForm] = useState({
     // Motociclista
@@ -52,6 +54,10 @@ export default function Iscrizione() {
   const [serverMsg, setServerMsg] = useState("");
   const patenteRef = useRef();
   const bonificoRef = useRef();
+
+  useEffect(() => {
+    getTourInfo().then(setTour).catch(() => {});
+  }, []);
 
   const set = (field) => (e) =>
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -156,6 +162,8 @@ export default function Iscrizione() {
           <p>L'Alba Salentina in Sella — compila tutti i campi obbligatori</p>
         </div>
       </div>
+
+      <TourInfoBar tour={tour} />
 
       <section className="section">
         <div className="container iscrizione-form-wrap">
