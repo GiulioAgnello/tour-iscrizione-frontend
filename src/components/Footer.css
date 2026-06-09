@@ -15,7 +15,9 @@
   padding-inline: 2rem;
 }
 
-.footer__brand { grid-column: 1; }
+.footer__brand {
+  grid-column: 1;
+}
 
 .footer__logo {
   font-family: var(--font-heading);
@@ -48,12 +50,14 @@
   transition: color var(--transition);
 }
 
-.footer__nav a:hover { color: var(--color-primary); }
+.footer__nav a:hover {
+  color: var(--color-primary);
+}
 
 .footer__copy {
   grid-column: 1 / -1;
   font-size: 0.8rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: var(--space-sm);
   text-align: center;
 }
@@ -71,6 +75,13 @@
 
 .footer__cookie-link:hover {
   color: var(--color-primary);
+}
+
+.footer__disclaimer {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: var(--space-sm);
+  text-align: center;
 }
 
 @media (max-width: 640px) {
