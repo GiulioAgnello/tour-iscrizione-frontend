@@ -34,21 +34,9 @@ export default function Footer() {
       </div>
       <p className="footer__disclaimer">
         Sito realizzato da{" "}
-        <a
-          href="https://portfolio-giulioagnello.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Giulio Agnello
+        <a href="#" target="_blank" rel="noopener noreferrer">
+          Media aptitude Lecce
         </a>{" "}
-        &{" "}
-        <a
-          href="https://www.linkedin.com/in/marco-longo-06b0a921a/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Marco Longo
-        </a>
       </p>
     </footer>
   );

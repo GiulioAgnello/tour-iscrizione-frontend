@@ -52,7 +52,7 @@ export default function PostiCounter({ tour }) {
         <p className="posti-banner__text">{mainText}</p>
 
         {/* Progress bar */}
-        <div className="posti-banner__bar-wrap">
+        {/* <div className="posti-banner__bar-wrap">
           <div className="posti-banner__bar-track">
             <div
               className="posti-banner__bar-fill"
@@ -65,8 +65,7 @@ export default function PostiCounter({ tour }) {
           </div>
           <span className="posti-banner__bar-label">
             {partecipanti_totali}/{posti_max} partecipanti
-          </span>
-        </div>
+          </span> */}
       </div>
     </div>
   );
