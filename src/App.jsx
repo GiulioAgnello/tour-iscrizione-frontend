@@ -1,8 +1,11 @@
+import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CookieBanner from './components/CookieBanner'
+import PostiWidget from './components/PostiWidget'
 import { CookieConsentProvider } from './context/CookieConsentContext'
+import { getTourInfo } from './utils/api'
 import Home from './pages/Home'
 import Iscrizione from './pages/Iscrizione'
 import Regolamento from './pages/Regolamento'
@@ -11,6 +14,14 @@ import Contatti from './pages/Contatti'
 import Privacy from './pages/Privacy'
 
 export default function App() {
+  const [tour, setTour] = useState(null)
+
+  useEffect(() => {
+    getTourInfo()
+      .then(setTour)
+      .catch(() => {})
+  }, [])
+
   return (
     <CookieConsentProvider>
     <div className="site-wrapper">
@@ -27,6 +38,7 @@ export default function App() {
       </main>
       <Footer />
       <CookieBanner />
+      <PostiWidget tour={tour} />
     </div>
     </CookieConsentProvider>
   )

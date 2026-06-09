@@ -1,0 +1,154 @@
+/* ===================================================
+   PostiWidget — badge fisso "orologetto"
+   =================================================== */
+
+.posti-widget {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 1.75rem;
+  z-index: 900;
+  width: 78px;
+  height: 78px;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.45));
+  transition: transform 0.2s ease;
+}
+
+.posti-widget:hover {
+  transform: scale(1.08);
+}
+
+/* SVG che occupa tutto il box */
+.posti-widget__arc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Track (sfondo anello) — modifica stroke-width per spessore anello */
+.posti-widget__arc-track {
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 8;
+}
+
+/* Fill (progresso) — colore default ok */
+.posti-widget__arc-fill {
+  stroke: var(--color-primary); /* giallo brand */
+  stroke-width: 8;
+  transition:
+    stroke-dashoffset 0.6s ease,
+    stroke 0.3s ease;
+}
+
+/* Contenuto centrale sovrapposto all'arc */
+.posti-widget__body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  /* margine interno per non sforare l'arco */
+  margin: 3px;
+}
+
+/* Numero posti */
+.posti-widget__num {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.posti-widget__num--zero {
+  color: #64748b;
+}
+
+/* Label sotto il numero */
+.posti-widget__label {
+  font-family: var(--font-body);
+  font-size: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  line-height: 1.2;
+  padding: 0 8px;
+}
+
+/* ---- STATI URGENZA ---- */
+
+/* OK — giallo brand (default) */
+.posti-widget--ok .posti-widget__arc-fill {
+  stroke: var(--color-primary);
+}
+
+/* WARNING ≥70% — arancio */
+.posti-widget--warning .posti-widget__arc-fill {
+  stroke: #f59e0b;
+}
+.posti-widget--warning .posti-widget__num {
+  color: #fbbf24;
+}
+
+/* CRITICO ≤3 — rosso, pulse */
+.posti-widget--critico .posti-widget__arc-fill {
+  stroke: #ef4444;
+}
+.posti-widget--critico .posti-widget__num {
+  color: #f87171;
+}
+.posti-widget--critico {
+  animation: widget-pulse 1.8s ease-in-out infinite;
+}
+
+/* ESAURITO — grigio spento */
+.posti-widget--esaurito .posti-widget__arc-fill {
+  stroke: #475569;
+}
+.posti-widget--esaurito .posti-widget__body {
+  background: #111;
+}
+.posti-widget--esaurito .posti-widget__label {
+  font-size: 0.44rem;
+  color: #64748b;
+}
+
+@keyframes widget-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 4px 14px rgba(239, 68, 68, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 4px 22px rgba(239, 68, 68, 0.75));
+  }
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 640px) {
+  .posti-widget {
+    width: 82px;
+    height: 82px;
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .posti-widget__body {
+    margin: 4px;
+  }
+
+  .posti-widget__num {
+    font-size: 1.65rem;
+  }
+
+  .posti-widget__label {
+    font-size: 0.52rem;
+  }
+}
