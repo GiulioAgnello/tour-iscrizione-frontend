@@ -68,7 +68,7 @@ export default function Contatti() {
                 <span className="contatti-info__icon">🏁</span>
                 <div>
                   <strong>Staffette</strong>
-                  <span>Pino Greco — 331 3678615</span>
+                  <span>Valerio Taurino — 331 3677143</span>
                 </div>
               </div>
               <div className="contatti-info__item">

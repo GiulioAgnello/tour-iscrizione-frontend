@@ -55,26 +55,6 @@ export default function Iscrizione() {
   const patenteRef = useRef();
   const bonificoRef = useRef();
 
-  const DESCRIZIONE = (
-    <>
-      <p className="programma-intro__text">
-        Sabato 18 luglio 2026, con partenza alle ore 20.30 da piazza S.
-        Castromediano a Cavallino, si terrà la nona edizione de
-        &ldquo;l&apos;Alba Salentina in sella&rdquo;, un evento motociclistico
-        che si svolge completamente di notte, un modo particolare ed
-        affascinante per promuovere il nostro magico Salento.
-      </p>
-      <br />
-      <p className="programma-intro__text">
-        Anche in questa edizione il ns. intento era di promuovere il territorio,
-        senza dimenticare la solidarietà per i bambini di CUOREAMICO. Infatti,
-        la quota di partecipazione di tutti i partecipanti è stata completamente
-        devoluta all&apos;associazione che si occupa principalmente di
-        migliorare le condizioni di vita dei bambini disabili. Verranno ammesse
-        200 moto.
-      </p>
-    </>
-  );
 
   useEffect(() => {
     getTourInfo()
@@ -186,10 +166,15 @@ export default function Iscrizione() {
         </div>
       </div>
 
-      {/* Descrizione */}
-      <section className="programma-intro">
-        <div className="programma-intro__container">{DESCRIZIONE}</div>
-      </section>
+      {/* Descrizione — editabile dall'editor WP del post ti_tour */}
+      {tour?.descrizione && (
+        <section className="programma-intro">
+          <div
+            className="programma-intro__container"
+            dangerouslySetInnerHTML={{ __html: tour.descrizione }}
+          />
+        </section>
+      )}
 
       <section className="section">
         <div className="container iscrizione-form-wrap">
