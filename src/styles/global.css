@@ -153,14 +153,16 @@ h3 {
 }
 
 .btn--outline {
+  background: #333333;
   color: var(--color-text-light);
-  border: 2px solid rgb(255, 255, 255);
+  border: 2px solid #333333;
 }
 
 .btn--outline:hover:not(:disabled) {
   background: var(--color-text-light);
-  color: var(--color-text);
+  color: #333333;
   transform: translateY(-2px);
+  border: 2px solid white;
 }
 
 .btn--dark {
