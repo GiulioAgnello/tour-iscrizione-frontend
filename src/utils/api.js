@@ -7,7 +7,24 @@ const BASE = import.meta.env.VITE_API_BASE ?? '/wp-json/tour-iscrizione/v1'
 
 async function request(path, options = {}) {
   const res = await fetch(`${BASE}${path}`, options)
-  const json = await res.json()
+
+  // Leggo sempre il corpo come testo: se il server emette un warning/errore
+  // PHP (HTML), res.json() esploderebbe nascondendo il messaggio reale.
+  const raw = await res.text()
+
+  let json
+  try {
+    json = JSON.parse(raw)
+  } catch {
+    // Risposta non-JSON (es. errore PHP in HTML): ripulisco i tag e mostro il testo grezzo.
+    const clean = raw.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+    console.error('[api] Risposta non-JSON dal server:', raw)
+    throw new Error(
+      clean
+        ? `Errore server: ${clean.slice(0, 300)}`
+        : `Errore server (HTTP ${res.status}).`
+    )
+  }
 
   if (!res.ok) {
     const message = json?.message || json?.data?.message || 'Errore di rete.'
