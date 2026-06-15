@@ -19,7 +19,7 @@ export default function PostiWidget({ tour }) {
 
   // stato urgenza
   let urgencyClass = "posti-widget--ok";
-  let label = "disponibili";
+  let label = "posti disponibili";
   if (disponibili === 0) {
     urgencyClass = "posti-widget--esaurito";
     label = "ESAURITO";
