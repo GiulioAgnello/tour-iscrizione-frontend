@@ -24,22 +24,22 @@ export default function App() {
 
   return (
     <CookieConsentProvider>
-    <div className="site-wrapper">
-      <Header />
-      <main className="main-content">
-        <Routes>
-          <Route path="/"            element={<Home />} />
-          <Route path="/iscrizione"  element={<Iscrizione />} />
-          <Route path="/regolamento" element={<Regolamento />} />
-          <Route path="/programma"   element={<Programma />} />
-          <Route path="/contatti"    element={<Contatti />} />
-          <Route path="/privacy"     element={<Privacy />} />
-        </Routes>
-      </main>
-      <Footer />
+      <div className="site-wrapper">
+        <Header />
+        <main className="main-content">
+          <Routes>
+            <Route path="/"            element={<Home />} />
+            <Route path="/iscrizione"  element={<Iscrizione />} />
+            <Route path="/regolamento" element={<Regolamento />} />
+            <Route path="/programma"   element={<Programma />} />
+            <Route path="/contatti"    element={<Contatti />} />
+            <Route path="/privacy"     element={<Privacy />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
       <CookieBanner />
       <PostiWidget tour={tour} />
-    </div>
     </CookieConsentProvider>
   )
 }
