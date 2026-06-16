@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { postContatti } from "../utils/api";
 import "./Contatti.css";
+import { useSponsors } from "../context/SponsorsContext";
+import SponsorBanner from "../components/SponsorBanner";
 
 export default function Contatti() {
   const [form, setForm] = useState({ nome: "", email: "", messaggio: "" });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [serverMsg, setServerMsg] = useState("");
+  const { sponsors } = useSponsors();
 
   const set = (f) => (e) => setForm((v) => ({ ...v, [f]: e.target.value }));
 
@@ -168,6 +171,7 @@ export default function Contatti() {
           </div>
         </div>
       </section>
+      <SponsorBanner sponsors={sponsors} />
     </>
   );
 }

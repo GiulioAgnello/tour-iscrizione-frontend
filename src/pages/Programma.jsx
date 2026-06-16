@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { getTourInfo } from "../utils/api";
 import "./Programma.css";
+import { useSponsors } from "../context/SponsorsContext";
+import SponsorBanner from "../components/SponsorBanner";
 
 export default function Programma() {
   const [tour, setTour] = useState(null);
+  const { sponsors } = useSponsors();
 
   useEffect(() => {
     getTourInfo()
@@ -56,6 +59,7 @@ export default function Programma() {
           ))}
         </section>
       )}
+      <SponsorBanner sponsors={sponsors} />
     </div>
   );
 }

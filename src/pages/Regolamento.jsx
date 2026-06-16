@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { getRegolamento, getTourInfo } from "../utils/api";
 import "./Regolamento.css";
+import { useSponsors } from "../context/SponsorsContext";
+import SponsorBanner from "../components/SponsorBanner";
 
 export default function Regolamento() {
   const [testo, setTesto] = useState("");
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { sponsors } = useSponsors();
 
   useEffect(() => {
     getRegolamento()
@@ -77,6 +80,7 @@ export default function Regolamento() {
           )}
         </div>
       </section>
+      <SponsorBanner sponsors={sponsors} />
     </>
   );
 }

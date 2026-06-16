@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { postIscrizione, getTourInfo } from "../utils/api";
+import { useSponsors } from "../context/SponsorsContext";
+import SponsorBanner from "../components/SponsorBanner";
 import TourInfoBar from "../components/TourInfoBar";
 import "./Iscrizione.css";
 
@@ -54,12 +56,12 @@ export default function Iscrizione() {
   const [serverMsg, setServerMsg] = useState("");
   const patenteRef = useRef();
   const bonificoRef = useRef();
-
+  const { sponsors } = useSponsors();
 
   useEffect(() => {
     getTourInfo()
       .then(setTour)
-      .catch(() => {});
+      .catch((err) => console.error("[Iscrizione] Errore getTourInfo:", err));
   }, []);
 
   const set = (field) => (e) =>
@@ -654,6 +656,7 @@ export default function Iscrizione() {
           </form>
         </div>
       </section>
+      <SponsorBanner sponsors={sponsors} />
     </>
   );
 }
