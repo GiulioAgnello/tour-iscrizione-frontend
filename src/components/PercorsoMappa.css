@@ -1,0 +1,64 @@
+.percorso-mappa {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.percorso-mappa__frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  background: var(--color-bg-alt);
+}
+
+.percorso-mappa__iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.percorso-mappa__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.percorso-mappa__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+
+.percorso-mappa__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  padding: 0.85rem 1.25rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--color-dark);
+  background: var(--color-primary);
+  border-radius: var(--radius-md, 8px);
+  transition: filter 0.15s, transform 0.15s;
+}
+
+.percorso-mappa__nav-btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .percorso-mappa__frame {
+    aspect-ratio: 16/9;
+  }
+}

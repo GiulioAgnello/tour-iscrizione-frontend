@@ -1,67 +1,61 @@
 import './TourDetails.css'
+import PercorsoMappa from './PercorsoMappa'
+import MapsNavButton from './MapsNavButton'
+
+// Fallback usato solo se da WP non è ancora stato inserito il programma.
+const TAPPE_FALLBACK = [
+  { ora: '18:30', luogo: 'Cavallino' },
+  { ora: '22:00', luogo: 'Gallipoli' },
+  { ora: '01:30', luogo: 'Santa Maria di Leuca' },
+  { ora: '04:30', luogo: 'Otranto' },
+  { ora: '06:00', luogo: 'Muro Leccese' },
+]
+
+/** Normalizza l'orario in formato HH:MM (es. "5:00" -> "05:00", "4" -> "04:00"). */
+function formatOra(value) {
+  if (value == null) return ''
+  const s = String(value).trim()
+  const m = s.match(/^(\d{1,2})(?:[:.hH]\s*(\d{1,2}))?$/)
+  if (!m) return s
+  const h = m[1].padStart(2, '0')
+  const min = (m[2] ?? '00').padStart(2, '0')
+  return `${h}:${min}`
+}
 
 export default function TourDetails({ tour }) {
+  // Sorgente unica: il programma impostato da WordPress (ti_programma).
+  const tappe =
+    Array.isArray(tour?.programma) && tour.programma.length > 0
+      ? tour.programma.map((t) => ({ ora: formatOra(t.orario), luogo: t.luogo }))
+      : TAPPE_FALLBACK
+
   return (
     <section className="section tour-details">
       <div className="container tour-details__grid">
 
-        {/* Colonna sinistra — testo */}
+        {/* Colonna sinistra — titolo + tappe + pulsante navigazione */}
         <div className="tour-details__text">
           <span className="section__eyebrow">Il percorso</span>
           <h2>Un'alba indimenticabile su due ruote</h2>
 
-          {tour?.descrizione ? (
-            <div
-              className="tour-details__body"
-              dangerouslySetInnerHTML={{ __html: tour.descrizione }}
-            />
-          ) : (
-            <div className="tour-details__body">
-              <p>
-                L'Alba Salentina in Sella è un raduno notturno in moto che attraversa i luoghi più
-                suggestivi del Salento, da Cavallino fino ad ammirare l'alba sul mare di Otranto.
-              </p>
-              <p>
-                Un percorso unico tra storia, paesaggi e tradizioni salentine, con soste in luoghi
-                iconici: Gallipoli, Santa Maria di Leuca, Otranto e Muro Leccese.
-              </p>
-            </div>
-          )}
-
-          {/* Tappe */}
-          <div className="tour-details__tappe">
-            {[
-              { luogo: 'Cavallino', ora: '18:30', desc: 'Raduno – Piazza S. Castromediano' },
-              { luogo: 'Gallipoli', ora: '22:00', desc: 'Visita al Centro Storico e al Castello' },
-              { luogo: 'S. M. di Leuca', ora: '01:30', desc: 'Cascata Monumentale AQP' },
-              { luogo: 'Otranto', ora: '04:30', desc: 'Faro di Punta Palascia – alba sul mare' },
-              { luogo: 'Muro Leccese', ora: '06:00', desc: 'Colazione in Piazza del Popolo' },
-            ].map(({ luogo, ora, desc }) => (
-              <div key={luogo} className="tour-details__tappa">
-                <div className="tour-details__tappa-ora">{ora}</div>
-                <div className="tour-details__tappa-info">
-                  <strong>{luogo}</strong>
-                  <span>{desc}</span>
-                </div>
-              </div>
+          <ol className="tour-details__tappe">
+            {tappe.map(({ ora, luogo }, i) => (
+              <li key={`${luogo}-${i}`} className="tour-details__tappa">
+                {ora && <span className="tour-details__tappa-ora">{ora}</span>}
+                <span className="tour-details__tappa-luogo">{luogo}</span>
+              </li>
             ))}
-          </div>
+          </ol>
+
+          <MapsNavButton link={tour?.mappa_link} />
         </div>
 
-        {/* Colonna destra — immagine */}
-        <div className="tour-details__image-wrap">
-          {tour?.dettagli_image ? (
-            <img
-              src={tour.dettagli_image}
-              alt="Tour in moto nel Salento"
-              className="tour-details__image"
-              loading="lazy"
-            />
-          ) : (
-            <div className="tour-details__image-placeholder">
-              <span>🏍️</span>
-            </div>
-          )}
+        {/* Colonna destra — mappa (con fallback immagine) */}
+        <div className="tour-details__map-col">
+          <PercorsoMappa
+            embedUrl={tour?.mappa_embed_url}
+            image={tour?.dettagli_image}
+          />
         </div>
 
       </div>

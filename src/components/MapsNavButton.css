@@ -1,0 +1,22 @@
+.maps-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  margin-top: var(--space-md);
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--color-dark);
+  background: var(--color-primary);
+  border-radius: var(--radius-md, 8px);
+  transition: filter 0.15s, transform 0.15s;
+}
+
+.maps-nav-btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
