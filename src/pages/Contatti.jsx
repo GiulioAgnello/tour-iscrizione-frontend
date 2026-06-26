@@ -65,6 +65,10 @@ export default function Contatti() {
                 <div>
                   <strong>Per info</strong>
                   <span>Francesco Perulli — 328 9675151</span>
+                  <span>Tommaso Barone — 340 1719393</span>
+                  <span>Davide Melli — 349 8830505</span>
+                  <span>Marco Fedele — 328 1778114</span>
+                  <span>Matteo Capone — 3342370640</span>
                 </div>
               </div>
               <div className="contatti-info__item">
@@ -85,7 +89,7 @@ export default function Contatti() {
                 <span className="contatti-info__icon">🕕</span>
                 <div>
                   <strong>Orario raduno</strong>
-                  <span>Ore 18:30 — partenza ore 20:30</span>
+                  <span>Ore 19:00</span>
                 </div>
               </div>
             </div>

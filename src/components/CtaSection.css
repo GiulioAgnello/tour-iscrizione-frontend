@@ -32,6 +32,24 @@
   justify-content: center;
 }
 
+.cta-section__btn--facebook {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+}
+
+.cta-section__btn--facebook:hover {
+  background-color: #166fe5;
+  color: #fff;
+}
+
+.cta-section__fb-icon {
+  flex-shrink: 0;
+}
+
 @media (max-width: 768px) {
   .cta-section__inner {
     flex-direction: column;

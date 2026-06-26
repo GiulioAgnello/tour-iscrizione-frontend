@@ -23,7 +23,9 @@ export default function Header() {
             className="header__logo-img"
           />
           <div className="header__logo-text-wrap">
-            <span className="header__logo-text">Motoclub Salentum Terrae</span>
+            <span className="header__logo-text">
+              Motoclub Salentum Terrae a.s.d
+            </span>
           </div>
         </Link>
 

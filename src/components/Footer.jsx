@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="footer__inner">
         <div className="footer__brand">
           <span className="footer__logo">Alba Salentina in Sella</span>
-          <p className="footer__tagline">Motoclub Salentum Terrae ASD</p>
+          <p className="footer__tagline">Motoclub Salentum Terrae a.s.d</p>
         </div>
 
         <nav className="footer__nav">
@@ -21,7 +21,7 @@ export default function Footer() {
         </nav>
 
         <p className="footer__copy">
-          © {new Date().getFullYear()} Motoclub Salentum Terrae ASD. Tutti i
+          © {new Date().getFullYear()} Motoclub Salentum Terrae a.s.d. Tutti i
           diritti riservati.{" "}
           <Link to="/privacy" className="footer__cookie-link">
             Privacy Policy

@@ -20,7 +20,7 @@ export default function Programma() {
     <div className="programma-page">
       {/* Hero header */}
       <div className="programma-page__header">
-        <p className="section__eyebrow">Salentum Terrae in Sella</p>
+        <p className="section__eyebrow">Alba Salentina in Sella</p>
         <h1 className="programma-page__title">Il Programma</h1>
       </div>
 
