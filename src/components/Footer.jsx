@@ -14,6 +14,10 @@ export default function Footer() {
           <p className="footer__tagline">Codice di affiliazione FMI: 9266</p>
         </div>
 
+        <div className="footer__middle">
+          <h3>Questo è un evento Cardioprotetto</h3>
+        </div>
+
         <nav className="footer__nav">
           <Link to="/">Home</Link>
           <Link to="/iscrizione">Iscriviti</Link>
