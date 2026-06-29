@@ -11,6 +11,7 @@ export default function Footer() {
         <div className="footer__brand">
           <span className="footer__logo">Alba Salentina in Sella</span>
           <p className="footer__tagline">Motoclub Salentum Terrae a.s.d</p>
+          <p className="footer__tagline">Codice di affiliazione FMI: 9266</p>
         </div>
 
         <nav className="footer__nav">
