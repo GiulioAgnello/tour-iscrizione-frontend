@@ -10,11 +10,18 @@ export default function Footer() {
       <div className="footer__inner">
         <div className="footer__brand">
           <span className="footer__logo">Alba Salentina in Sella</span>
-          <p className="footer__tagline">Motoclub Salentum Terrae a.s.d</p>
+          <p className="footer__tagline">Motoclub Salentum Terrae a.s.d.</p>
           <p className="footer__tagline">Codice di affiliazione FMI: 9266</p>
         </div>
 
         <div className="footer__middle">
+          <img
+            className="footer__dae"
+            src="/dae.svg"
+            alt="Defibrillatore Automatico Esterno (DAE)"
+            width="56"
+            height="56"
+          />
           <h3>Questo è un evento Cardioprotetto</h3>
         </div>
 

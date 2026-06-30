@@ -24,7 +24,7 @@ export default function Header() {
           />
           <div className="header__logo-text-wrap">
             <span className="header__logo-text">
-              Motoclub Salentum Terrae a.s.d
+              Motoclub Salentum Terrae a.s.d.
             </span>
           </div>
         </Link>
