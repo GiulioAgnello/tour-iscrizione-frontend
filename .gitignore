@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Vite temp / cache
+*.timestamp-*.mjs
+.vite/
+
+# File temporanei e di test
+_t.txt
+_perm_test.txt
+**/_perm_test.txt
+
+# Log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
