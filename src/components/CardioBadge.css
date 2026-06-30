@@ -1,0 +1,79 @@
+/* Badge fisso "evento cardioprotetto", posizionato sopra il widget posti. */
+.cardio-badge {
+  position: fixed;
+  /* allineato sopra il PostiWidget (78px, bottom/right 1.75rem) e centrato su di esso */
+  right: calc(1.75rem + 13px);
+  bottom: calc(1.75rem + 78px + 0.6rem);
+  z-index: 901;
+  width: 52px;
+  height: 52px;
+  cursor: help;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.45));
+  transition: transform 0.2s ease;
+  outline: none;
+}
+
+.cardio-badge:hover,
+.cardio-badge:focus-visible {
+  transform: scale(1.08);
+}
+
+.cardio-badge__logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Tooltip: si apre a sinistra (il badge è al bordo destro) */
+.cardio-badge__tip {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: #1a1a1a;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius, 6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+/* freccetta del tooltip */
+.cardio-badge__tip::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #1a1a1a;
+}
+
+.cardio-badge:hover .cardio-badge__tip,
+.cardio-badge:focus .cardio-badge__tip,
+.cardio-badge:focus-visible .cardio-badge__tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 640px) {
+  .cardio-badge {
+    /* il widget su mobile è 82px, bottom 1.25rem */
+    right: calc(1.25rem + 15px);
+    bottom: calc(1.25rem + 82px + 0.6rem);
+    width: 54px;
+    height: 54px;
+  }
+  .cardio-badge__tip {
+    font-size: 0.75rem;
+  }
+}

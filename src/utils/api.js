@@ -36,8 +36,24 @@ async function request(path, options = {}) {
 
 // ─── Tour ──────────────────────────────────────────────────────────────────
 
+// Cache breve dei dati del tour: evita di rifare la chiamata a ogni cambio
+// pagina (navigazione istantanea). Si rinfresca dopo TOUR_TTL cosi il
+// contatore "posti disponibili" resta aggiornato.
+let _tourPromise = null
+let _tourTs = 0
+const TOUR_TTL = 30000 // 30 secondi
+
 export function getTourInfo() {
-  return request('/tour-info')
+  const now = Date.now()
+  if (_tourPromise && now - _tourTs < TOUR_TTL) {
+    return _tourPromise
+  }
+  _tourTs = now
+  _tourPromise = request('/tour-info').catch((err) => {
+    _tourPromise = null // non cachare gli errori: riprova al prossimo accesso
+    throw err
+  })
+  return _tourPromise
 }
 
 // ─── Sponsor ───────────────────────────────────────────────────────────────

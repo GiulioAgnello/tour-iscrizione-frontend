@@ -5,12 +5,16 @@ import SponsorBanner from "../components/SponsorBanner";
 import CittaAutocomplete from "../components/CittaAutocomplete";
 import "./Iscrizione.css";
 
-const TAGLIE = ["XS", "S", "M", "L", "XL", "XXL"];
+const TAGLIE = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 const TARGA_RE = /^[A-Z]{2}[0-9]{5}$/; // moto: 2 lettere + 5 cifre (es. AB12345)
-
 // Controllo file lato client (allineato al limite del backend: 5MB)
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
-const FILE_TYPES_OK = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+const FILE_TYPES_OK = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "application/pdf",
+];
 
 function formatSize(bytes) {
   return bytes >= 1024 * 1024
@@ -49,9 +53,23 @@ const ERROR_LABELS = {
 
 // Ordine di priorità per lo scroll al primo errore
 const ERROR_ORDER = [
-  "nome", "cognome", "nato_a", "data_nascita", "residente_citta", "cap",
-  "via", "cell", "email", "taglia", "moto_modello", "targa",
-  "hasPasseggera", "patente", "bonifico", "consenso1", "consenso2",
+  "nome",
+  "cognome",
+  "nato_a",
+  "data_nascita",
+  "residente_citta",
+  "cap",
+  "via",
+  "cell",
+  "email",
+  "taglia",
+  "moto_modello",
+  "targa",
+  "hasPasseggera",
+  "patente",
+  "bonifico",
+  "consenso1",
+  "consenso2",
 ];
 
 function Field({ label, required, error, htmlFor, children }) {
@@ -124,7 +142,10 @@ export default function Iscrizione() {
 
   // Targa: forza maiuscolo e rimuove caratteri non alfanumerici
   function setTarga(e) {
-    const v = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 7);
+    const v = e.target.value
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, "")
+      .slice(0, 7);
     setForm((f) => ({ ...f, targa: v }));
   }
 
@@ -184,8 +205,17 @@ export default function Iscrizione() {
   function validate() {
     const err = {};
     const required = [
-      "nome", "cognome", "nato_a", "data_nascita", "residente_citta",
-      "via", "cell", "email", "taglia", "moto_modello", "targa",
+      "nome",
+      "cognome",
+      "nato_a",
+      "data_nascita",
+      "residente_citta",
+      "via",
+      "cell",
+      "email",
+      "taglia",
+      "moto_modello",
+      "targa",
     ];
     required.forEach((f) => {
       if (!String(form[f]).trim()) err[f] = "Campo obbligatorio";
@@ -195,10 +225,15 @@ export default function Iscrizione() {
       err.email = "Email non valida";
     }
     if (form.targa && !TARGA_RE.test(form.targa)) {
-      err.targa = "Formato targa moto non valido (2 lettere + 5 cifre, es. AB12345)";
+      err.targa =
+        "Formato targa moto non valido (2 lettere + 5 cifre, es. AB12345)";
     }
     // CAP: obbligatorio se residenza in Italia. Si compila solo selezionando dall'elenco.
-    if (form.residente_citta.trim() && !form.residente_estero && !form.cap.trim()) {
+    if (
+      form.residente_citta.trim() &&
+      !form.residente_estero &&
+      !form.cap.trim()
+    ) {
       err.cap = "Seleziona la città dall'elenco per compilare il CAP";
     }
 
@@ -263,10 +298,10 @@ export default function Iscrizione() {
         <div className="container iscrizione-success">
           <div className="iscrizione-success__icon">✅</div>
           <h1>Iscrizione ricevuta!</h1>
-          <p>{serverMsg}</p>
+
           <p className="iscrizione-success__sub">
-            Controlla la tua email. Riceverai una conferma non appena il tuo
-            modulo sarà valutato.
+            Controlla la tua email. Riceverai una conferma non appena la tua
+            iscrizione sarà approvata.
           </p>
         </div>
       </div>
@@ -314,12 +349,21 @@ export default function Iscrizione() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} noValidate encType="multipart/form-data">
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            encType="multipart/form-data"
+          >
             {/* ── DATI MOTOCICLISTA ── */}
             <div className="iscrizione-block">
               <h2 className="iscrizione-block__title">🏍️ Dati Motociclista</h2>
               <div className="iscrizione-grid">
-                <Field label="Nome" required error={errors.nome} htmlFor="fld-nome">
+                <Field
+                  label="Nome"
+                  required
+                  error={errors.nome}
+                  htmlFor="fld-nome"
+                >
                   <input
                     id="fld-nome"
                     className={`form-input ${errors.nome ? "error" : ""}`}
@@ -330,7 +374,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Cognome" required error={errors.cognome} htmlFor="fld-cognome">
+                <Field
+                  label="Cognome"
+                  required
+                  error={errors.cognome}
+                  htmlFor="fld-cognome"
+                >
                   <input
                     id="fld-cognome"
                     className={`form-input ${errors.cognome ? "error" : ""}`}
@@ -341,7 +390,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Nato/a a" required error={errors.nato_a} htmlFor="fld-nato_a">
+                <Field
+                  label="Nato/a a"
+                  required
+                  error={errors.nato_a}
+                  htmlFor="fld-nato_a"
+                >
                   <CittaAutocomplete
                     id="fld-nato_a"
                     value={form.nato_a}
@@ -352,7 +406,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Data di nascita" required error={errors.data_nascita} htmlFor="fld-data_nascita">
+                <Field
+                  label="Data di nascita"
+                  required
+                  error={errors.data_nascita}
+                  htmlFor="fld-data_nascita"
+                >
                   <input
                     id="fld-data_nascita"
                     className={`form-input ${errors.data_nascita ? "error" : ""}`}
@@ -362,18 +421,32 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Residente a" required error={errors.residente_citta} htmlFor="fld-residente_citta">
+                <Field
+                  label="Residente a"
+                  required
+                  error={errors.residente_citta}
+                  htmlFor="fld-residente_citta"
+                >
                   <CittaAutocomplete
                     id="fld-residente_citta"
                     value={form.residente_citta}
                     estero={form.residente_estero}
                     error={errors.residente_citta}
-                    onChange={setCitta("residente_citta", "cap", "residente_estero")}
+                    onChange={setCitta(
+                      "residente_citta",
+                      "cap",
+                      "residente_estero",
+                    )}
                     placeholder="Città"
                   />
                 </Field>
 
-                <Field label="CAP" required error={errors.cap} htmlFor="fld-cap">
+                <Field
+                  label="CAP"
+                  required
+                  error={errors.cap}
+                  htmlFor="fld-cap"
+                >
                   <input
                     id="fld-cap"
                     className={`form-input ${errors.cap ? "error" : ""}`}
@@ -384,7 +457,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Via / Indirizzo" required error={errors.via} htmlFor="fld-via">
+                <Field
+                  label="Via / Indirizzo"
+                  required
+                  error={errors.via}
+                  htmlFor="fld-via"
+                >
                   <input
                     id="fld-via"
                     className={`form-input ${errors.via ? "error" : ""}`}
@@ -395,7 +473,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Cellulare" required error={errors.cell} htmlFor="fld-cell">
+                <Field
+                  label="Cellulare"
+                  required
+                  error={errors.cell}
+                  htmlFor="fld-cell"
+                >
                   <input
                     id="fld-cell"
                     className={`form-input ${errors.cell ? "error" : ""}`}
@@ -406,7 +489,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Email" required error={errors.email} htmlFor="fld-email">
+                <Field
+                  label="Email"
+                  required
+                  error={errors.email}
+                  htmlFor="fld-email"
+                >
                   <input
                     id="fld-email"
                     className={`form-input ${errors.email ? "error" : ""}`}
@@ -417,7 +505,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Taglia (maglietta)" required error={errors.taglia} htmlFor="fld-taglia">
+                <Field
+                  label="Taglia (maglietta)"
+                  required
+                  error={errors.taglia}
+                  htmlFor="fld-taglia"
+                >
                   <select
                     id="fld-taglia"
                     className={`form-select ${errors.taglia ? "error" : ""}`}
@@ -426,12 +519,19 @@ export default function Iscrizione() {
                   >
                     <option value="">— Seleziona —</option>
                     {TAGLIE.map((t) => (
-                      <option key={t} value={t}>{t}</option>
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
                     ))}
                   </select>
                 </Field>
 
-                <Field label="Moto — Modello" required error={errors.moto_modello} htmlFor="fld-moto_modello">
+                <Field
+                  label="Moto — Modello"
+                  required
+                  error={errors.moto_modello}
+                  htmlFor="fld-moto_modello"
+                >
                   <input
                     id="fld-moto_modello"
                     className={`form-input ${errors.moto_modello ? "error" : ""}`}
@@ -442,7 +542,12 @@ export default function Iscrizione() {
                   />
                 </Field>
 
-                <Field label="Targa" required error={errors.targa} htmlFor="fld-targa">
+                <Field
+                  label="Targa"
+                  required
+                  error={errors.targa}
+                  htmlFor="fld-targa"
+                >
                   <input
                     id="fld-targa"
                     className={`form-input ${errors.targa ? "error" : ""}`}
@@ -491,7 +596,10 @@ export default function Iscrizione() {
               )}
 
               {hasPasseggera === "si" && (
-                <div className="iscrizione-grid" style={{ marginTop: "var(--space-md)" }}>
+                <div
+                  className="iscrizione-grid"
+                  style={{ marginTop: "var(--space-md)" }}
+                >
                   <Field label="Nome">
                     <input
                       className="form-input"
@@ -516,7 +624,11 @@ export default function Iscrizione() {
                     <CittaAutocomplete
                       value={form.pass_nato_a}
                       estero={form.pass_nato_estero}
-                      onChange={setCitta("pass_nato_a", null, "pass_nato_estero")}
+                      onChange={setCitta(
+                        "pass_nato_a",
+                        null,
+                        "pass_nato_estero",
+                      )}
                       placeholder="Es. Brindisi"
                     />
                   </Field>
@@ -534,7 +646,11 @@ export default function Iscrizione() {
                     <CittaAutocomplete
                       value={form.pass_residente_citta}
                       estero={form.pass_residente_estero}
-                      onChange={setCitta("pass_residente_citta", "pass_cap", "pass_residente_estero")}
+                      onChange={setCitta(
+                        "pass_residente_citta",
+                        "pass_cap",
+                        "pass_residente_estero",
+                      )}
                       placeholder="Città"
                     />
                   </Field>
@@ -587,7 +703,9 @@ export default function Iscrizione() {
                     >
                       <option value="">— Seleziona —</option>
                       {TAGLIE.map((t) => (
-                        <option key={t} value={t}>{t}</option>
+                        <option key={t} value={t}>
+                          {t}
+                        </option>
                       ))}
                     </select>
                   </Field>
@@ -602,8 +720,8 @@ export default function Iscrizione() {
                 <span className="iscrizione-block__required"> *</span>
               </h2>
               <p className="iscrizione-block__desc">
-                Carica una foto o un PDF della patente del motociclista (JPG, PNG,
-                WebP o PDF — max 5MB).
+                Carica una foto o un PDF della patente del motociclista (JPG,
+                PNG, WebP o PDF — max 5MB).
               </p>
               <div className="iscrizione-foto">
                 <div
@@ -621,7 +739,12 @@ export default function Iscrizione() {
                     ) : (
                       <div className="iscrizione-foto__placeholder">
                         <span>📄</span>
-                        <span style={{ color: "var(--color-primary-dark)", fontWeight: 600 }}>
+                        <span
+                          style={{
+                            color: "var(--color-primary-dark)",
+                            fontWeight: 600,
+                          }}
+                        >
                           {patenteFile.name} — {formatSize(patenteFile.size)}
                         </span>
                         <span className="iscrizione-foto__hint">
@@ -679,7 +802,12 @@ export default function Iscrizione() {
                     ) : (
                       <div className="iscrizione-foto__placeholder">
                         <span>📄</span>
-                        <span style={{ color: "var(--color-primary-dark)", fontWeight: 600 }}>
+                        <span
+                          style={{
+                            color: "var(--color-primary-dark)",
+                            fontWeight: 600,
+                          }}
+                        >
                           {bonificoFile.name} — {formatSize(bonificoFile.size)}
                         </span>
                         <span className="iscrizione-foto__hint">
@@ -713,30 +841,36 @@ export default function Iscrizione() {
 
             {/* ── CONSENSI ── */}
             <div className="iscrizione-block">
-              <h2 className="iscrizione-block__title">📋 Consensi obbligatori</h2>
+              <h2 className="iscrizione-block__title">
+                📋 Consensi obbligatori
+              </h2>
 
               {/* Consenso 1 */}
               <div className="consenso" id="fld-consenso1">
                 <div className="consenso__scroll">
                   <p>
-                    <strong>Condizioni generali obbligatorie e liberatoria</strong>
+                    <strong>
+                      Condizioni generali obbligatorie e liberatoria
+                    </strong>
                   </p>
                   <p>
                     La partecipazione all'evento "L'ALBA SALENTINA IN SELLA"
-                    obbliga il Partecipante ad osservare tutte le regole di buona
-                    condotta e di rispetto della circolazione stradale,
+                    obbliga il Partecipante ad osservare tutte le regole di
+                    buona condotta e di rispetto della circolazione stradale,
                     impegnandosi a mantenere un comportamento prudente ed una
                     guida del proprio mezzo in sicurezza per sé e per gli altri.
                   </p>
                   <p>
-                    Il partecipante esonera e manleva il "MotoClub Salentum Terrae
-                    ed i suoi organizzatori" da ogni responsabilità per danni alla
-                    propria persona, a cosa o verso terzi oltre per tutte le cause
-                    non menzionate che potranno verificarsi durante l'esecuzione
-                    dell'evento.
+                    Il partecipante esonera e manleva il "MotoClub Salentum
+                    Terrae ed i suoi organizzatori" da ogni responsabilità per
+                    danni alla propria persona, a cosa o verso terzi oltre per
+                    tutte le cause non menzionate che potranno verificarsi
+                    durante l'esecuzione dell'evento.
                   </p>
                 </div>
-                <label className={`consenso__label ${errors.consenso1 ? "error" : ""}`}>
+                <label
+                  className={`consenso__label ${errors.consenso1 ? "error" : ""}`}
+                >
                   <input
                     type="checkbox"
                     checked={consenso1}
@@ -751,24 +885,28 @@ export default function Iscrizione() {
               </div>
 
               {/* Consenso 2 */}
-              <div className="consenso" id="fld-consenso2" style={{ marginTop: "var(--space-md)" }}>
+              <div
+                className="consenso"
+                id="fld-consenso2"
+                style={{ marginTop: "var(--space-md)" }}
+              >
                 <div className="consenso__scroll">
                   <p>
                     <strong>
-                      Informativa sulla privacy — art. 13 Regolamento UE 2016/679
-                      (GDPR)
+                      Informativa sulla privacy — art. 13 Regolamento UE
+                      2016/679 (GDPR)
                     </strong>
                   </p>
                   <p>
                     Con la sottoscrizione della presente si autorizza
-                    l'organizzatore dell'evento al trattamento dei dati personali
-                    ai sensi e per gli effetti di cui all'art. 13, del Regolamento
-                    UE 2016/679 relativo alla protezione delle persone fisiche con
-                    riguardo al trattamento dei dati personali, nonché alla libera
-                    circolazione di tali dati e che abroga la direttiva 95/46/CE,
-                    nel rispetto dei criteri di correttezza e trasparenza,
-                    tutelando la sua/tua riservatezza ed i suoi/tuoi diritti e per
-                    fini leciti.
+                    l'organizzatore dell'evento al trattamento dei dati
+                    personali ai sensi e per gli effetti di cui all'art. 13, del
+                    Regolamento UE 2016/679 relativo alla protezione delle
+                    persone fisiche con riguardo al trattamento dei dati
+                    personali, nonché alla libera circolazione di tali dati e
+                    che abroga la direttiva 95/46/CE, nel rispetto dei criteri
+                    di correttezza e trasparenza, tutelando la sua/tua
+                    riservatezza ed i suoi/tuoi diritti e per fini leciti.
                   </p>
                   <p>
                     Il trattamento sarà effettuato anche con l'ausilio di mezzi
@@ -776,7 +914,9 @@ export default function Iscrizione() {
                     realizzazione dell'evento.
                   </p>
                 </div>
-                <label className={`consenso__label ${errors.consenso2 ? "error" : ""}`}>
+                <label
+                  className={`consenso__label ${errors.consenso2 ? "error" : ""}`}
+                >
                   <input
                     type="checkbox"
                     checked={consenso2}

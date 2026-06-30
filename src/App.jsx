@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import PostiWidget from "./components/PostiWidget";
+import CardioBadge from "./components/CardioBadge";
 import { CookieConsentProvider } from "./context/CookieConsentContext";
 import { SponsorsProvider } from "./context/SponsorsContext";
 import { getTourInfo } from "./utils/api";
@@ -42,6 +43,7 @@ export default function App() {
         </div>
         <CookieBanner />
         <PostiWidget tour={tour} />
+        <CardioBadge />
       </SponsorsProvider>
     </CookieConsentProvider>
   );

@@ -11,9 +11,9 @@ export default function CtaSection({ tour }) {
           <p>
             Iscriviti all'evento e vivi un'esperienza unica tra i paesaggi più
             belli del Salento.
-            {tour?.quota && ` Quota di partecipazione: ${tour.quota}.`}
-            {tour?.posti_max &&
-              ` Posti limitati a ${tour.posti_max} equipaggi.`}
+            {tour?.quota &&
+              ` Quota di partecipazione: ${tour.quota} a persona.`}
+            {tour?.posti_max && ` Posti limitati a ${tour.posti_max} persone.`}
           </p>
         </div>
 
