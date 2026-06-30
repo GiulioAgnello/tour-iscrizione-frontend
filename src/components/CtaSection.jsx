@@ -25,7 +25,7 @@ export default function CtaSection({ tour }) {
             Leggi il regolamento
           </Link>
           <a
-            href="https://www.facebook.com/share/1R5RQWyAVf/?mibextid=wwXIfr"
+            href="https://www.facebook.com/share/1Lr65TZTCF/?mibextid=wwXIfr"
             target="_blank"
             rel="noopener noreferrer"
             className="btn cta-section__btn cta-section__btn--facebook"

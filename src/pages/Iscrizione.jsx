@@ -8,6 +8,24 @@ import "./Iscrizione.css";
 const TAGLIE = ["XS", "S", "M", "L", "XL", "XXL"];
 const TARGA_RE = /^[A-Z]{2}[0-9]{5}$/; // moto: 2 lettere + 5 cifre (es. AB12345)
 
+// Controllo file lato client (allineato al limite del backend: 5MB)
+const MAX_FILE_BYTES = 5 * 1024 * 1024;
+const FILE_TYPES_OK = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+
+function formatSize(bytes) {
+  return bytes >= 1024 * 1024
+    ? (bytes / (1024 * 1024)).toFixed(1) + " MB"
+    : Math.max(1, Math.round(bytes / 1024)) + " KB";
+}
+
+function checkFile(file) {
+  if (!FILE_TYPES_OK.includes(file.type))
+    return "Formato non valido: usa JPG, PNG, WebP o PDF";
+  if (file.size > MAX_FILE_BYTES)
+    return `File troppo grande: ${formatSize(file.size)} — max 5MB`;
+  return null;
+}
+
 // Etichette per il riepilogo errori in cima al form
 const ERROR_LABELS = {
   nome: "Nome",
@@ -122,19 +140,45 @@ export default function Iscrizione() {
   function handlePatente(e) {
     const file = e.target.files?.[0];
     if (!file) return;
+    const msg = checkFile(file);
+    if (msg) {
+      setPatenteFile(null);
+      setPatentePreview(null);
+      setErrors((er) => ({ ...er, patente: msg }));
+      e.target.value = "";
+      return;
+    }
     setPatenteFile(file);
     setPatentePreview(
       file.type === "application/pdf" ? null : URL.createObjectURL(file),
     );
+    setErrors((er) => {
+      const n = { ...er };
+      delete n.patente;
+      return n;
+    });
   }
 
   function handleBonifico(e) {
     const file = e.target.files?.[0];
     if (!file) return;
+    const msg = checkFile(file);
+    if (msg) {
+      setBonificoFile(null);
+      setBonificoPreview(null);
+      setErrors((er) => ({ ...er, bonifico: msg }));
+      e.target.value = "";
+      return;
+    }
     setBonificoFile(file);
     setBonificoPreview(
       file.type === "application/pdf" ? null : URL.createObjectURL(file),
     );
+    setErrors((er) => {
+      const n = { ...er };
+      delete n.bonifico;
+      return n;
+    });
   }
 
   function validate() {
@@ -578,7 +622,7 @@ export default function Iscrizione() {
                       <div className="iscrizione-foto__placeholder">
                         <span>📄</span>
                         <span style={{ color: "var(--color-primary-dark)", fontWeight: 600 }}>
-                          {patenteFile.name}
+                          {patenteFile.name} — {formatSize(patenteFile.size)}
                         </span>
                         <span className="iscrizione-foto__hint">
                           PDF caricato — clicca per cambiare
@@ -636,7 +680,7 @@ export default function Iscrizione() {
                       <div className="iscrizione-foto__placeholder">
                         <span>📄</span>
                         <span style={{ color: "var(--color-primary-dark)", fontWeight: 600 }}>
-                          {bonificoFile.name}
+                          {bonificoFile.name} — {formatSize(bonificoFile.size)}
                         </span>
                         <span className="iscrizione-foto__hint">
                           PDF caricato — clicca per cambiare

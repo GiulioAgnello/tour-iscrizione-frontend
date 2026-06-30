@@ -2,6 +2,13 @@
   position: relative;
 }
 
+/* Il wrapper .form-group ha overflow:hidden (anti-sbordo griglia):
+   va reso visibile dove c'è l'autocomplete, altrimenti il dropdown
+   in posizione absolute viene tagliato e non compare. */
+.form-group:has(.citta-ac) {
+  overflow: visible;
+}
+
 .citta-ac__list {
   position: absolute;
   top: 100%;
