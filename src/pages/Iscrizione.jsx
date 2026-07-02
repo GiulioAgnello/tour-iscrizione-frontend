@@ -8,7 +8,7 @@ import CittaAutocomplete from "../components/CittaAutocomplete";
 import "./Iscrizione.css";
 
 const TAGLIE = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-const TARGA_RE = /^[A-Z]{2}[0-9]{5}$/; // moto: 2 lettere + 5 cifre (es. AB12345)
+const TARGA_RE = /^[A-Z]{2}[0-9]{6}$/; // moto: 2 lettere + 6 cifre (es. AB123456)
 // Controllo file lato client (allineato al limite del backend: 5MB)
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const FILE_TYPES_OK = [
@@ -222,7 +222,7 @@ export default function Iscrizione() {
     }
     if (form.targa && !TARGA_RE.test(form.targa)) {
       err.targa =
-        "Formato targa moto non valido (2 lettere + 5 cifre, es. AB12345)";
+        "Formato targa moto non valido (2 lettere + 6 cifre, es. AB123456)";
     }
     // CAP: obbligatorio se residenza in Italia. Si compila solo selezionando dall'elenco.
     if (
@@ -568,8 +568,8 @@ export default function Iscrizione() {
                     type="text"
                     value={form.targa}
                     onChange={setTarga}
-                    placeholder="Es. AB12345"
-                    maxLength={7}
+                    placeholder="Es. AB123456"
+                    maxLength={8}
                     style={{ textTransform: "uppercase" }}
                   />
                 </Field>
