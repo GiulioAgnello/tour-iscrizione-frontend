@@ -5,10 +5,11 @@ import { useSponsors } from "../context/SponsorsContext";
 import { useTour } from "../context/TourContext";
 import SponsorBanner from "../components/SponsorBanner";
 import CittaAutocomplete from "../components/CittaAutocomplete";
+import { MARCHE } from "../data/marche";
 import "./Iscrizione.css";
 
 const TAGLIE = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-const TARGA_RE = /^[A-Z]{2}[0-9]{6}$/; // moto: 2 lettere + 6 cifre (es. AB123456)
+const TARGA_RE = /^[A-Z]{2}[0-9]{5,6}$/; // moto: 2 lettere + 5 o 6 cifre (es. AB12345 / AB123456)
 // Controllo file lato client (allineato al limite del backend: 5MB)
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const FILE_TYPES_OK = [
@@ -44,6 +45,8 @@ const ERROR_LABELS = {
   cell: "Cellulare",
   email: "Email",
   taglia: "Taglia",
+  moto_marca: "Moto — Marca",
+  moto_marca_altro: "Marca (specifica)",
   moto_modello: "Moto — Modello",
   targa: "Targa",
   hasPasseggera: "Passeggera (sì/no)",
@@ -65,6 +68,7 @@ const ERROR_ORDER = [
   "cell",
   "email",
   "taglia",
+  "moto_marca",
   "moto_modello",
   "targa",
   "hasPasseggera",
@@ -104,6 +108,8 @@ export default function Iscrizione() {
     cell: "",
     email: "",
     taglia: "",
+    moto_marca: "",
+    moto_marca_altro: "",
     moto_modello: "",
     targa: "",
     // Passeggera
@@ -210,6 +216,7 @@ export default function Iscrizione() {
       "cell",
       "email",
       "taglia",
+      "moto_marca",
       "moto_modello",
       "targa",
     ];
@@ -222,7 +229,10 @@ export default function Iscrizione() {
     }
     if (form.targa && !TARGA_RE.test(form.targa)) {
       err.targa =
-        "Formato targa moto non valido (2 lettere + 6 cifre, es. AB123456)";
+        "Formato targa moto non valido (2 lettere + 5 o 6 cifre, es. AB12345 o AB123456)";
+    }
+    if (form.moto_marca === "Altro" && !form.moto_marca_altro.trim()) {
+      err.moto_marca_altro = "Specifica la marca della moto";
     }
     // CAP: obbligatorio se residenza in Italia. Si compila solo selezionando dall'elenco.
     if (
@@ -273,6 +283,11 @@ export default function Iscrizione() {
       if (typeof v === "boolean") return; // i flag estero non vanno inviati
       if (v) fd.append(k, v);
     });
+    // Marca: se "Altro", invia la marca digitata a mano
+    if (form.moto_marca === "Altro") {
+      fd.set("moto_marca", form.moto_marca_altro.trim());
+    }
+    fd.delete("moto_marca_altro");
     fd.append("patente", patenteFile);
     fd.append("bonifico", bonificoFile);
     fd.append("consenso_partecipazione", "1");
@@ -539,6 +554,46 @@ export default function Iscrizione() {
                     ))}
                   </select>
                 </Field>
+
+                <Field
+                  label="Moto — Marca"
+                  required
+                  error={errors.moto_marca}
+                  htmlFor="fld-moto_marca"
+                >
+                  <select
+                    id="fld-moto_marca"
+                    className={`form-select ${errors.moto_marca ? "error" : ""}`}
+                    value={form.moto_marca}
+                    onChange={set("moto_marca")}
+                  >
+                    <option value="">— Seleziona —</option>
+                    {MARCHE.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                    <option value="Altro">Altra marca…</option>
+                  </select>
+                </Field>
+
+                {form.moto_marca === "Altro" && (
+                  <Field
+                    label="Specifica la marca"
+                    required
+                    error={errors.moto_marca_altro}
+                    htmlFor="fld-moto_marca_altro"
+                  >
+                    <input
+                      id="fld-moto_marca_altro"
+                      className={`form-input ${errors.moto_marca_altro ? "error" : ""}`}
+                      type="text"
+                      value={form.moto_marca_altro}
+                      onChange={set("moto_marca_altro")}
+                      placeholder="Es. Mondial"
+                    />
+                  </Field>
+                )}
 
                 <Field
                   label="Moto — Modello"
