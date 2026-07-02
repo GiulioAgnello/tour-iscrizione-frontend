@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import IscrizioneCta from "./IscrizioneCta";
 import "./CtaSection.css";
 
 export default function CtaSection({ tour }) {
@@ -18,9 +19,7 @@ export default function CtaSection({ tour }) {
         </div>
 
         <div className="cta-section__actions">
-          <Link to="/iscrizione" className="btn btn--primary cta-section__btn">
-            Iscriviti ora
-          </Link>
+          <IscrizioneCta className="btn btn--primary cta-section__btn" />
           <Link to="/regolamento" className="btn btn--outline cta-section__btn">
             Leggi il regolamento
           </Link>

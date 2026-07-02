@@ -146,6 +146,19 @@ h3 {
   cursor: not-allowed;
 }
 
+/* Stato "iscrizioni chiuse": bottone spento non cliccabile */
+.btn--closed {
+  background: #9ca3af;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.btn--closed:hover {
+  background: #9ca3af;
+  transform: none;
+}
+
 .btn--primary {
   background: var(--color-primary);
   color: var(--color-text);

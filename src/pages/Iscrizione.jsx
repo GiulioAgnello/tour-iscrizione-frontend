@@ -1,6 +1,8 @@
-import { useState, useRef, useEffect } from "react";
-import { postIscrizione, getTourInfo } from "../utils/api";
+import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { postIscrizione } from "../utils/api";
 import { useSponsors } from "../context/SponsorsContext";
+import { useTour } from "../context/TourContext";
 import SponsorBanner from "../components/SponsorBanner";
 import CittaAutocomplete from "../components/CittaAutocomplete";
 import "./Iscrizione.css";
@@ -86,7 +88,7 @@ function Field({ label, required, error, htmlFor, children }) {
 }
 
 export default function Iscrizione() {
-  const [tour, setTour] = useState(null);
+  const { tour, iscrizioniChiuse } = useTour();
   const [hasPasseggera, setHasPasseggera] = useState(null); // null | 'si' | 'no'
   const [form, setForm] = useState({
     // Motociclista
@@ -131,12 +133,6 @@ export default function Iscrizione() {
   const bonificoRef = useRef();
   const { sponsors } = useSponsors();
 
-  useEffect(() => {
-    getTourInfo()
-      .then(setTour)
-      .catch((err) => console.error("[Iscrizione] Errore getTourInfo:", err));
-  }, []);
-
   const set = (field) => (e) =>
     setForm((f) => ({ ...f, [field]: e.target.value }));
 
@@ -145,7 +141,7 @@ export default function Iscrizione() {
     const v = e.target.value
       .toUpperCase()
       .replace(/[^A-Z0-9]/g, "")
-      .slice(0, 7);
+      .slice(0, 8);
     setForm((f) => ({ ...f, targa: v }));
   }
 
@@ -303,6 +299,24 @@ export default function Iscrizione() {
             Controlla la tua email. Riceverai una conferma non appena la tua
             iscrizione sarà approvata.
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (iscrizioniChiuse) {
+    return (
+      <div className="page-hero">
+        <div className="container iscrizione-chiuse">
+          <div className="iscrizione-chiuse__icon">🏁</div>
+          <h1>Iscrizioni chiuse</h1>
+          <p className="iscrizione-chiuse__sub">
+            Ci dispiace, abbiamo raggiunto il numero massimo di posti per
+            quest'anno. Ti aspettiamo alla prossima edizione!
+          </p>
+          <Link to="/" className="btn btn--primary">
+            Torna alla home
+          </Link>
         </div>
       </div>
     );

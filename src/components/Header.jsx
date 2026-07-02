@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+import IscrizioneCta from "./IscrizioneCta";
 import "./Header.css";
 
 const NAV_LINKS = [
@@ -54,13 +55,10 @@ export default function Header() {
               {label}
             </NavLink>
           ))}
-          <Link
-            to="/iscrizione"
+          <IscrizioneCta
             className="btn btn--primary header__cta"
             onClick={() => setOpen(false)}
-          >
-            Iscriviti ora
-          </Link>
+          />
         </nav>
       </div>
     </header>

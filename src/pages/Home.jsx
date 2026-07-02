@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { getTourInfo } from "../utils/api";
 import { useSponsors } from "../context/SponsorsContext";
+import { useTour } from "../context/TourContext";
 import SponsorBanner from "../components/SponsorBanner";
 import HeroSection from "../components/HeroSection";
 import TourDetails from "../components/TourDetails";
@@ -9,14 +8,8 @@ import CtaSection from "../components/CtaSection";
 import PostiCounter from "../components/PostiCounter";
 
 export default function Home() {
-  const [tour, setTour] = useState(null);
+  const { tour } = useTour();
   const { sponsors } = useSponsors();
-
-  useEffect(() => {
-    getTourInfo()
-      .then(setTour)
-      .catch(() => {});
-  }, []);
 
   return (
     <>

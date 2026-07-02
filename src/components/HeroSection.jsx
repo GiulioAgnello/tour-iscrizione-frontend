@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import IscrizioneCta from "./IscrizioneCta";
 import "./HeroSection.css";
 
 export default function HeroSection({ tour }) {
@@ -51,9 +52,7 @@ export default function HeroSection({ tour }) {
           </div> */}
 
           <div className="hero__actions">
-            <Link to="/iscrizione" className="btn btn--primary">
-              Iscriviti ora
-            </Link>
+            <IscrizioneCta className="btn btn--primary" />
             <Link to="/regolamento" className="btn btn--outline">
               Regolamento
             </Link>

@@ -188,6 +188,27 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
+/* Iscrizioni chiuse (posti esauriti) */
+.iscrizione-chiuse {
+  text-align: center;
+  padding-block: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+.iscrizione-chiuse__icon {
+  font-size: 4rem;
+}
+.iscrizione-chiuse h1 {
+  color: var(--color-primary);
+}
+.iscrizione-chiuse__sub {
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 520px;
+  margin-bottom: var(--space-sm);
+}
+
 /* Toggle passeggera */
 .iscrizione-passeggera-toggle {
   display: flex;
