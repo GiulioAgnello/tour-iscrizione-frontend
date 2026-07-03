@@ -1,0 +1,264 @@
+/* ============================================================
+   GALLERY SECTION — griglia uniforme + comparsa sfalsata + lightbox
+   ============================================================ */
+.gallery {
+  padding-block: var(--space-xl);
+  background: var(--color-gallery-bg);
+}
+
+.gallery__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.gallery__title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+/* ── Griglia a fasce: celle di misure diverse, bordi sempre pari ── */
+.gallery__grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 180px;
+  grid-auto-flow: dense;
+  gap: 14px;
+}
+
+/* Cella grande 2x2 (una per fascia) — dà le "misure diverse" */
+.gallery__item--big {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: var(--color-bg-alt);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  /* Stato iniziale della comparsa (movimento) */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow var(--transition);
+  transition-delay: calc(var(--i, 0) * 55ms);
+}
+
+/* Quando la griglia entra nel viewport: le foto salgono in sequenza */
+.gallery__grid.is-visible .gallery__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Se l'utente preferisce meno animazioni, mostra tutto subito */
+@media (prefers-reduced-motion: reduce) {
+  .gallery__item {
+    opacity: 1;
+    transform: none;
+    transition: box-shadow var(--transition);
+  }
+}
+
+.gallery__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition-delay: 0s;
+}
+
+.gallery__item:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.gallery__item:hover .gallery__img {
+  transform: scale(1.08);
+}
+
+/* ── Overlay hover ── */
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to top,
+    rgba(26, 26, 26, 0.45),
+    rgba(26, 26, 26, 0)
+  );
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.gallery__item:hover .gallery__overlay {
+  opacity: 1;
+}
+
+.gallery__zoom {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.6);
+  transition: transform var(--transition);
+}
+
+.gallery__item:hover .gallery__zoom {
+  transform: scale(1);
+}
+
+/* ── Lightbox ── */
+.gallery__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  animation: gallery-fade 0.2s ease;
+}
+
+@keyframes gallery-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gallery__lb-img {
+  max-width: min(1100px, 92vw);
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.6);
+}
+
+.gallery__lb-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.gallery__lb-close:hover {
+  background: var(--color-primary);
+  color: var(--color-text);
+}
+
+.gallery__lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.gallery__lb-nav:hover {
+  background: var(--color-primary);
+  color: var(--color-text);
+}
+
+.gallery__lb-nav--prev {
+  left: 20px;
+}
+.gallery__lb-nav--next {
+  right: 20px;
+}
+
+.gallery__lb-counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .gallery__grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+  }
+  .gallery__item--big {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 560px) {
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 150px;
+  }
+  .gallery__item--big {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .gallery__lb-nav {
+    width: 42px;
+    height: 42px;
+    font-size: 1.6rem;
+  }
+  .gallery__lb-nav--prev {
+    left: 8px;
+  }
+  .gallery__lb-nav--next {
+    right: 8px;
+  }
+}

@@ -1,0 +1,39 @@
+/* ============================================================
+   SECTION DIVIDER — onda SVG tra sezioni
+   ============================================================ */
+.section-divider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin-block: -1px; /* evita hairline tra sezione e divider per arrotondamenti */
+}
+
+.section-divider__svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.section-divider__svg--flip {
+  transform: scaleX(-1);
+}
+
+.section-divider__main {
+  filter: drop-shadow(0 -2px 3px rgba(0, 0, 0, 0.05));
+}
+
+.section-divider__accent {
+  fill: var(--color-primary);
+  opacity: 0.85;
+}
+
+@media (max-width: 560px) {
+  /* Onde più contenute su mobile per non rubare spazio verticale */
+  .section-divider {
+    height: 44px !important;
+  }
+}

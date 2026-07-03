@@ -1,6 +1,6 @@
 .video-section {
   padding-block: var(--space-xl);
-  background: var(--color-bg-ligt);
+  background: var(--color-bg-alt);
 }
 
 .video-section__container {
@@ -17,7 +17,7 @@
   font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--color-text-dark);
+  color: var(--color-text);
   text-transform: uppercase;
   text-align: center;
   margin-bottom: var(--space-md);
