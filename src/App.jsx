@@ -24,6 +24,11 @@ function AppShell() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/iscrizione" element={<Iscrizione />} />
+          {/* Pagina riservata iscrizioni d'eccezione — NON linkata da nessuna parte */}
+          <Route
+            path="/iscrizione-eccezione"
+            element={<Iscrizione eccezione />}
+          />
           <Route path="/regolamento" element={<Regolamento />} />
           <Route path="/programma" element={<Programma />} />
           <Route path="/contatti" element={<Contatti />} />

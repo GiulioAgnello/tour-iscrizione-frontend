@@ -15,6 +15,7 @@ export function TourProvider({ children }) {
   }, []);
 
   // iscrizioni_chiuse arriva dal backend; fallback difensivo su posti_disponibili.
+  // Governa i bottoni "Iscriviti ora" / "Iscrizioni chiuse" (dinamici).
   const iscrizioniChiuse =
     tour?.iscrizioni_chiuse ??
     (tour?.posti_disponibili != null && tour.posti_disponibili <= 0);

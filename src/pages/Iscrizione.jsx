@@ -91,7 +91,7 @@ function Field({ label, required, error, htmlFor, children }) {
   );
 }
 
-export default function Iscrizione() {
+export default function Iscrizione({ eccezione = false }) {
   const { tour, iscrizioniChiuse } = useTour();
   const [hasPasseggera, setHasPasseggera] = useState(null); // null | 'si' | 'no'
   const [form, setForm] = useState({
@@ -292,6 +292,7 @@ export default function Iscrizione() {
     fd.append("bonifico", bonificoFile);
     fd.append("consenso_partecipazione", "1");
     fd.append("consenso_privacy", "1");
+    if (eccezione) fd.append("eccezione", "1");
 
     try {
       const data = await postIscrizione(fd);
@@ -319,7 +320,7 @@ export default function Iscrizione() {
     );
   }
 
-  if (iscrizioniChiuse) {
+  if (!eccezione && iscrizioniChiuse) {
     return (
       <div className="page-hero">
         <div className="container iscrizione-chiuse">
