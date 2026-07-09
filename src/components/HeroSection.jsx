@@ -9,6 +9,8 @@ export default function HeroSection({ tour }) {
     <section className="hero">
       {bg && <img className="hero__bg" src={bg} alt="" />}
 
+      <span className="hero__credit">Ph. Ivan Palumbo</span>
+
       <div className="hero__content">
         <div className="hero__info-card">
           <span className="section__eyebrow">Evento moto</span>
